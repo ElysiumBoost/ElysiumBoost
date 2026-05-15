@@ -130,9 +130,25 @@
 
     .game-tabs {
       display: flex;
-      justify-content: center;
-      gap: 8px;
+      justify-content: flex-start;
+      gap: 6px;
       min-width: 0;
+      overflow-x: auto;
+      overflow-y: hidden;
+      flex-wrap: nowrap;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(122, 77, 255, .45) transparent;
+      padding: 2px 0;
+    }
+
+    .game-tabs::-webkit-scrollbar {
+      height: 4px;
+    }
+
+    .game-tabs::-webkit-scrollbar-thumb {
+      background: rgba(122, 77, 255, .45);
+      border-radius: 999px;
     }
 
     .game-tab svg {
@@ -157,6 +173,13 @@
       letter-spacing: .02em;
       transition: transform .18s ease, background .18s ease, border-color .18s ease;
       white-space: nowrap;
+    }
+
+    .game-tab {
+      flex: 0 0 auto;
+      padding: 0 10px;
+      gap: 6px;
+      min-height: 38px;
     }
 
     .btn:hover, .game-tab:hover, .cat-btn:hover, .service-btn:hover, .tab-btn:hover {
@@ -2897,12 +2920,12 @@
       },
       {
         id: "circle",
-        label: "Boost Plus",
+        label: "Boost+",
         tabIcon: "i-circle",
         heroBg: "assets/bg-elysium-4k.webp",
         heroPosition: "center center",
-        kicker: "Boost Plus",
-        title: "Boost Plus Teammate Services",
+        kicker: "Boost+",
+        title: "Boost+ Teammate Services",
         copy: "Choose League, Valorant, or E-Girl teammate services and copy a clean Discord ticket.",
         categories: [
           { id: "circle-lol", label: "League of Legends", icon: "i-circle", bg: "assets/bg-lol-4k.webp" },
@@ -2962,6 +2985,32 @@
         services: []
       },
       {
+        id: "faceit",
+        label: "Faceit",
+        tabIcon: "i-star",
+        heroBg: "assets/faceit.webp",
+        heroPosition: "center center",
+        kicker: "FACEIT",
+        title: "Faceit Services",
+        copy: "FACEIT hub preview. Live listings and pricing will appear here soon.",
+        categories: [],
+        popular: [],
+        services: []
+      },
+      {
+        id: "premier",
+        label: "Premier",
+        tabIcon: "i-star",
+        heroBg: "assets/premier-cs.webp",
+        heroPosition: "center center",
+        kicker: "Premier",
+        title: "Premier Services",
+        copy: "Premier matchmaking hub preview. Services will be listed here soon.",
+        categories: [],
+        popular: [],
+        services: []
+      },
+      {
         id: "arc",
         label: "Arc Raiders",
         tabIcon: "i-raid",
@@ -3005,6 +3054,46 @@
         ]
       }
     ];
+
+    const GAME_TAB_ORDER = ["arc", "valorant", "wow", "circle", "lol", "faceit", "premier"];
+    const GAME_HASH_SLUGS = {
+      arc: "arc-raiders",
+      valorant: "valorant",
+      wow: "world-of-warcraft",
+      circle: "boost-plus",
+      lol: "league-of-legends",
+      faceit: "faceit",
+      premier: "premier"
+    };
+    const HASH_TO_GAME_ID = (() => {
+      const map = {};
+      Object.entries(GAME_HASH_SLUGS).forEach(([gameId, slug]) => {
+        map[String(slug).toLowerCase()] = gameId;
+      });
+      map.arc = "arc";
+      map.wow = "wow";
+      map.lol = "lol";
+      map.circle = "circle";
+      return map;
+    })();
+
+    function parseGameHash() {
+      const key = (location.hash || "").replace(/^#\/?/, "").trim().toLowerCase();
+      if (!key) return null;
+      return HASH_TO_GAME_ID[key] || null;
+    }
+
+    function syncGameHash(gameId) {
+      const base = location.pathname + (location.search || "");
+      if (!gameId) {
+        if (location.hash) history.replaceState(null, "", base);
+        return;
+      }
+      const slug = GAME_HASH_SLUGS[gameId];
+      if (!slug) return;
+      const next = `#${slug}`;
+      if (location.hash !== next) history.replaceState(null, "", next);
+    }
 
     function fastService(id, title, icon, price, short, intro) {
       return {
@@ -3064,6 +3153,15 @@
         "Gun Part Blueprints": new Set()
       }
     };
+
+    function restoreGameFromHash() {
+      const id = parseGameHash();
+      if (!id || !games.some(g => g.id === id)) return;
+      const game = games.find(g => g.id === id);
+      state.game = id;
+      state.category = game.categories[0]?.id || "services";
+      state.serviceId = game.services.find(service => service.category === state.category)?.id ?? null;
+    }
 
     const $ = id => document.getElementById(id);
     const val = id => $(id)?.value || "";
@@ -3151,23 +3249,27 @@
     }
 
     function selectGame(id) {
-      if (id !== "arc" && id !== "valorant" && id !== "wow") {
-        showToast("Coming soon. Arc Raiders, Valorant, and World of Warcraft are open now.");
+      if (!games.some(g => g.id === id)) {
+        showToast("That game is not available.");
         return;
       }
       state.game = id;
       const game = currentGame();
       state.category = game.categories[0]?.id || "services";
       state.serviceId = game.services.find(service => service.category === state.category)?.id ?? null;
+      syncGameHash(id);
       renderAll();
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
     function renderGames() {
-      const tabOrder = { arc: 0, valorant: 1, wow: 2 };
+      const tabRank = id => {
+        const i = GAME_TAB_ORDER.indexOf(id);
+        return i === -1 ? 99 : i;
+      };
       $("gameTabs").innerHTML = games
-        .filter(game => game.id === "arc" || game.id === "valorant" || game.id === "wow")
-        .sort((a, b) => (tabOrder[a.id] ?? 9) - (tabOrder[b.id] ?? 9))
+        .filter(game => GAME_TAB_ORDER.includes(game.id))
+        .sort((a, b) => tabRank(a.id) - tabRank(b.id))
         .map(game => {
           const soonTab = game.id === "valorant" ? " game-tab--coming-soon" : "";
           const labelHtml = game.id === "valorant"
@@ -3183,10 +3285,11 @@
 
     function renderHome() {
       $("homeContent").classList.toggle("hidden", Boolean(state.game));
-      const orderedGames = [...games].sort((a, b) => {
-        const order = { arc: 0, valorant: 1, wow: 2 };
-        return (order[a.id] ?? 50) - (order[b.id] ?? 50);
-      });
+      const tabRank = id => {
+        const i = GAME_TAB_ORDER.indexOf(id);
+        return i === -1 ? 99 : i;
+      };
+      const orderedGames = [...games].sort((a, b) => tabRank(a.id) - tabRank(b.id));
       const gameCards = orderedGames.map(game => {
         const media = `<img class="home-game-media" src="${game.heroBg}" alt="${escapeHtml(ui(game.label))}" loading="eager">`;
         const title = `<h2>${ui(game.label)}</h2>`;
@@ -3200,6 +3303,24 @@
           </button>`;
         }
         if (game.id === "wow") {
+          return `
+          <button class="home-game-card" type="button" data-home-game="${game.id}" aria-label="${escapeHtml(ui(game.label))}, ${escapeHtml(ui("Select Game"))}">
+            ${media}
+            ${title}
+            <p>${ui(game.copy)}</p>
+            <span class="btn btn-primary">${ui("Select Game")}</span>
+          </button>`;
+        }
+        if (game.id === "circle" || game.id === "lol") {
+          return `
+          <button class="home-game-card" type="button" data-home-game="${game.id}" aria-label="${escapeHtml(ui(game.label))}, ${escapeHtml(ui("Select Game"))}">
+            ${media}
+            ${title}
+            <p>${ui(game.copy)}</p>
+            <span class="btn btn-primary">${ui("Select Game")}</span>
+          </button>`;
+        }
+        if (game.id === "faceit" || game.id === "premier") {
           return `
           <button class="home-game-card" type="button" data-home-game="${game.id}" aria-label="${escapeHtml(ui(game.label))}, ${escapeHtml(ui("Select Game"))}">
             ${media}
@@ -3225,26 +3346,6 @@
             <span class="btn btn-primary">${ui("Coming Soon")}</span>
           </button>`;
       });
-      gameCards.push(`
-        <div class="cs2-split-card" aria-label="Counter-Strike 2 modes">
-          <button class="cs2-mode-card cs2-premier-card coming-soon" type="button" disabled>
-            <img src="assets/premier-cs.webp" alt="CS2 Premier">
-            <div class="cs2-mode-overlay">
-              <h3>CS2 Premier</h3>
-              <p>Play Premier matchmaking and climb the ranks.</p>
-              <span class="disabled-btn">${ui("Coming Soon")}</span>
-            </div>
-          </button>
-          <button class="cs2-mode-card cs2-faceit-card coming-soon" type="button" disabled>
-            <img src="assets/faceit.webp" alt="CS2 FACEIT">
-            <div class="cs2-mode-overlay">
-              <h3>CS2 FACEIT</h3>
-              <p>Queue on FACEIT and compete at the highest level.</p>
-              <span class="disabled-btn">${ui("Coming Soon")}</span>
-            </div>
-          </button>
-        </div>
-      `);
       $("homeGameGrid").innerHTML = gameCards.join("");
       document.querySelector(".info-grid").innerHTML = `
         <article class="info-card">
@@ -3369,7 +3470,7 @@
 
     function renderPopular() {
       const game = currentGame();
-      if (game.id === "circle" || game.id === "valorant") {
+      if (game.id === "circle" || game.id === "valorant" || game.id === "faceit" || game.id === "premier") {
         $("popularHead").classList.add("is-hidden");
         $("popularGrid").classList.add("is-hidden");
         $("popularGrid").innerHTML = "";
@@ -3696,6 +3797,7 @@
       state.game = "arc";
       state.category = categoryId || service.category;
       state.serviceId = service.id;
+      syncGameHash("arc");
       renderAll();
       requestAnimationFrame(() => {
         $("detailSection")?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -5017,6 +5119,10 @@
       pushGameServices(games.find(g => g.id === "arc"));
       pushGameServices(games.find(g => g.id === "valorant"));
       pushGameServices(games.find(g => g.id === "wow"));
+      pushGameServices(games.find(g => g.id === "circle"));
+      pushGameServices(games.find(g => g.id === "lol"));
+      pushGameServices(games.find(g => g.id === "faceit"));
+      pushGameServices(games.find(g => g.id === "premier"));
       const pushCategoryHits = game => {
         if (!game || !game.categories?.length) return;
         game.categories.forEach(cat => {
@@ -5062,6 +5168,7 @@
       }
       if (entry.type === "blueprint") state.pendingBlueprintSearch = { tab: entry.bpTab, query: entry.bpQuery };
       $("siteSearchResults").classList.remove("active");
+      syncGameHash(state.game);
       renderAll();
       $("detailSection").scrollIntoView({ behavior: "smooth", block: "start" });
     }
@@ -5134,6 +5241,7 @@
       state.game = null;
       state.category = null;
       state.serviceId = null;
+      syncGameHash(null);
       renderAll();
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
@@ -5204,6 +5312,26 @@
     });
 
     updateAudioButton();
+    restoreGameFromHash();
+    window.addEventListener("hashchange", () => {
+      const id = parseGameHash();
+      if (id && games.some(g => g.id === id)) {
+        if (state.game !== id) {
+          const game = games.find(g => g.id === id);
+          state.game = id;
+          state.category = game.categories[0]?.id || "services";
+          state.serviceId = game.services.find(service => service.category === state.category)?.id ?? null;
+          renderAll();
+        }
+      } else if (!id) {
+        if (state.game) {
+          state.game = null;
+          state.category = null;
+          state.serviceId = null;
+          renderAll();
+        }
+      }
+    });
     renderAll();
     startOrderFeed();
     startMusic();
