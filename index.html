@@ -995,25 +995,36 @@
 
     .home-pair-bundle {
       position: relative;
-      grid-column: 1 / -1;
+      min-width: 0;
+      min-height: 230px;
+      display: flex;
+      flex-direction: column;
       border-radius: var(--radius);
-      border: 1px solid rgba(172, 146, 255, .48);
-      background: radial-gradient(120% 88% at 50% -12%, rgba(122, 77, 255, .26), transparent 54%), linear-gradient(180deg, rgba(16, 10, 38, .96), #05030d 42%);
-      box-shadow: 0 20px 58px rgba(0, 0, 0, .32), inset 0 1px 0 rgba(255, 255, 255, .06);
+      border: 1px solid var(--line);
+      background: radial-gradient(120% 88% at 50% -12%, rgba(122, 77, 255, .22), transparent 54%), linear-gradient(180deg, rgba(16, 10, 38, .96), #05030d 42%);
+      box-shadow: 0 18px 54px rgba(0, 0, 0, .28);
       overflow: hidden;
+      transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease;
+    }
+
+    .home-pair-bundle:hover {
+      transform: translateY(-2px);
+      border-color: rgba(180, 120, 255, .58);
+      box-shadow: 0 22px 64px rgba(122, 77, 255, .16);
     }
 
     .home-pair-bundle-split {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      min-height: 256px;
+      flex: 1 1 auto;
+      min-height: 230px;
     }
 
     .home-pair-bundle-pane {
       position: relative;
       display: block;
       width: 100%;
-      min-height: 256px;
+      min-height: 230px;
       margin: 0;
       padding: 0;
       border: 0;
@@ -1027,8 +1038,8 @@
     }
 
     .home-pair-bundle-pane + .home-pair-bundle-pane {
-      border-left: 1px solid rgba(155, 104, 255, .42);
-      box-shadow: inset 14px 0 36px -20px rgba(0, 0, 0, .5);
+      border-left: 1px solid rgba(155, 104, 255, .38);
+      box-shadow: inset 8px 0 22px -14px rgba(0, 0, 0, .45);
     }
 
     .home-pair-bundle-pane.home-pick:focus-visible .cs2-mode-overlay {
@@ -1098,6 +1109,39 @@
       line-height: 1.45;
       font-weight: 650;
       text-shadow: 0 8px 24px rgba(0, 0, 0, .68);
+    }
+
+    .home-pair-bundle .home-pair-h {
+      font-size: clamp(11px, 1.55vw, 17px);
+      letter-spacing: .03em;
+      margin-bottom: 4px;
+    }
+
+    .home-pair-bundle .home-pair-p {
+      font-size: 10px;
+      line-height: 1.32;
+      margin: 0 0 8px;
+      max-width: none;
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .home-pair-bundle .cs2-mode-overlay {
+      left: 8px;
+      right: 8px;
+      bottom: 12px;
+    }
+
+    .home-pair-bundle .btn.btn-primary {
+      width: 100%;
+      min-width: 0;
+      justify-content: center;
+      padding: 0 6px;
+      min-height: 34px;
+      font-size: 11px;
+      letter-spacing: .04em;
     }
 
     .cs2-mode-overlay {
