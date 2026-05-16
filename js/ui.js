@@ -577,6 +577,15 @@
       else foot.appendChild(strip);
     }
 
+    /** #orderCheckoutStrip is moved into #cartBody when the cart has items; replacing cartBody.innerHTML destroys it unless we move it back first. */
+    function repatriateOrderCheckoutStrip() {
+      const strip = $("orderCheckoutStrip");
+      const foot = $("cartDrawerFoot");
+      if (strip && foot && strip.parentElement !== foot) {
+        foot.appendChild(strip);
+      }
+    }
+
     function adjustCartLineQty(lineId, delta) {
       const item = state.cart.find(i => i.id === lineId);
       if (!item || item.custom) return;
@@ -736,6 +745,7 @@
     }
 
     function renderCart() {
+      repatriateOrderCheckoutStrip();
       const lineCount = state.cart.reduce((n, item) => n + (item.qty || 1), 0);
       const cartCountEl = $("cartCount");
       const cartBodyEl = $("cartBody");
