@@ -2434,6 +2434,226 @@
       color: rgba(191, 252, 255, .78);
     }
 
+    .valorant-package-slider {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .valorant-package-slider__readout {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .valorant-package-slider__readout-label {
+      font-family: var(--display);
+      font-size: 17px;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      color: #fdfbff;
+      line-height: 1.2;
+    }
+
+    .valorant-package-slider__readout-price {
+      font-family: var(--display);
+      font-size: 21px;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: .03em;
+      line-height: 1;
+    }
+
+    .valorant-package-slider__track {
+      position: relative;
+      padding: 6px 2px 0;
+    }
+
+    .valorant-package-slider__input {
+      display: block;
+      width: 100%;
+      margin: 0;
+      height: 30px;
+      -webkit-appearance: none;
+      appearance: none;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .valorant-package-slider__input:focus {
+      outline: none;
+    }
+
+    .valorant-package-slider__input:focus-visible {
+      outline: 2px solid rgba(255, 209, 102, .5);
+      outline-offset: 5px;
+      border-radius: 6px;
+    }
+
+    .valorant-package-slider__input::-webkit-slider-runnable-track {
+      height: 5px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(155, 104, 255, .9), rgba(74, 40, 140, .55));
+      box-shadow:
+        inset 0 0 0 1px rgba(0, 0, 0, .2),
+        0 0 16px rgba(122, 77, 255, .28);
+    }
+
+    .valorant-package-slider__input::-moz-range-track {
+      height: 5px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(155, 104, 255, .9), rgba(74, 40, 140, .55));
+      box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .2);
+    }
+
+    .valorant-package-slider__input::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 11px;
+      height: 24px;
+      margin-top: -10px;
+      border-radius: 4px;
+      background: linear-gradient(180deg, #fff8e8, #e0c46a);
+      border: 1px solid rgba(122, 77, 255, .55);
+      box-shadow:
+        0 0 16px rgba(255, 209, 102, .4),
+        0 2px 10px rgba(0, 0, 0, .4);
+    }
+
+    .valorant-package-slider__input::-moz-range-thumb {
+      width: 11px;
+      height: 24px;
+      border-radius: 4px;
+      background: linear-gradient(180deg, #fff8e8, #e0c46a);
+      border: 1px solid rgba(122, 77, 255, .55);
+      box-shadow:
+        0 0 16px rgba(255, 209, 102, .4),
+        0 2px 10px rgba(0, 0, 0, .4);
+    }
+
+    .valorant-package-slider__marks {
+      position: relative;
+      height: 26px;
+      margin-top: 6px;
+    }
+
+    .valorant-unrated-mark {
+      position: absolute;
+      left: var(--m-left);
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      pointer-events: none;
+    }
+
+    .valorant-unrated-mark__dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(122, 77, 255, .4);
+      box-shadow: 0 0 8px rgba(122, 77, 255, .22);
+    }
+
+    .valorant-unrated-mark.is-active .valorant-unrated-mark__dot {
+      background: var(--gold);
+      box-shadow: 0 0 12px rgba(255, 209, 102, .45);
+    }
+
+    .valorant-unrated-mark__n {
+      font-family: var(--display);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .04em;
+      color: rgba(183, 176, 223, .92);
+    }
+
+    .valorant-unrated-mark.is-active .valorant-unrated-mark__n {
+      color: var(--gold);
+    }
+
+    .valorant-level-stepper-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .valorant-level-stepper {
+      display: grid;
+      grid-template-columns: 50px minmax(0, 1fr) 50px;
+      gap: 12px;
+      align-items: center;
+      min-height: 54px;
+    }
+
+    .valorant-level-stepper .valorant-level-stepper__btn {
+      min-height: 50px;
+      border-radius: 10px;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .valorant-level-stepper .valorant-level-stepper__btn .qty-step-glyph {
+      pointer-events: none;
+    }
+
+    .valorant-level-stepper__mid {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      min-width: 0;
+    }
+
+    .valorant-level-stepper__target {
+      font-family: var(--display);
+      font-size: 30px;
+      font-weight: 800;
+      letter-spacing: .07em;
+      color: #fdfbff;
+      line-height: 1;
+    }
+
+    .valorant-level-stepper__from {
+      font-size: 12px;
+      letter-spacing: .05em;
+      color: rgba(191, 252, 255, .78);
+      text-transform: uppercase;
+      font-weight: 750;
+    }
+
+    @media (max-width: 520px) {
+      .valorant-package-slider__readout-label {
+        font-size: 15px;
+      }
+
+      .valorant-package-slider__readout-price {
+        font-size: 19px;
+      }
+
+      .valorant-level-stepper {
+        grid-template-columns: 46px minmax(0, 1fr) 46px;
+        gap: 10px;
+      }
+
+      .valorant-level-stepper__target {
+        font-size: 26px;
+      }
+
+      .valorant-level-stepper .valorant-level-stepper__btn {
+        min-height: 46px;
+        font-size: 22px;
+      }
+    }
+
     .valorant-pill-grid {
       gap: 8px;
     }
@@ -4717,6 +4937,33 @@
       { id: "l15", label: "Level 15 to 20", eur: 8.9 }
     ];
 
+    function valorantUnratedSliderLastIdx() {
+      return Math.max(0, valorantUnratedPackages.length - 1);
+    }
+
+    function valorantUnratedPackAtSliderIdx(idx) {
+      const last = valorantUnratedSliderLastIdx();
+      const i = Math.max(0, Math.min(last, Math.round(Number(idx) || 0)));
+      return valorantUnratedPackages[i];
+    }
+
+    function valorantUnratedSliderIdxFromPkgId(id) {
+      const i = valorantUnratedPackages.findIndex(p => p.id === id);
+      if (i >= 0) return i;
+      const fb = valorantUnratedPackages.findIndex(p => p.id === "u5");
+      return fb >= 0 ? fb : 0;
+    }
+
+    function valorantUnratedGamesCount(pack) {
+      const m = /^u(\d+)$/.exec(pack?.id || "");
+      return m ? Number(m[1]) : 0;
+    }
+
+    function valorantLevelPkgIdxFromId(id) {
+      const i = valorantLevelPackages.findIndex(p => p.id === id);
+      return i < 0 ? 0 : i;
+    }
+
     const valorantBattlePassPackages = [
       { id: "bp-small", label: "Small Progress Pack", eur: 9.9 },
       { id: "bp-half", label: "Half Battle Pass", eur: 19.9 },
@@ -6685,27 +6932,60 @@
         </div>`;
       }
       if (type === "valorant-unrated") {
-        const pills = valorantUnratedPackages.map(p =>
-          `<button type="button" class="raid-pill${p.id === "u5" ? " active" : ""}" data-val-unrated="${escapeHtml(p.id)}"><strong>${escapeHtml(p.label)}</strong><span>${displayMoney(valorantEurToStoredTotal(p.eur))}</span></button>`).join("");
+        const lastI = valorantUnratedSliderLastIdx();
+        const startIdx = valorantUnratedSliderIdxFromPkgId("u5");
+        const startPack = valorantUnratedPackAtSliderIdx(startIdx);
+        const g0 = valorantUnratedGamesCount(startPack);
+        const unratedMarks = valorantUnratedPackages.map((p, i) => {
+          const left = lastI <= 0 ? 0 : (i / lastI) * 100;
+          const g = valorantUnratedGamesCount(p);
+          return `<span class="valorant-unrated-mark" style="--m-left:${left}%"><span class="valorant-unrated-mark__dot"></span><span class="valorant-unrated-mark__n">${g}</span></span>`;
+        }).join("");
         return `
-        <input type="hidden" id="valUnratedPkg" value="u5">
+        <input type="hidden" id="valUnratedPkg" value="${escapeHtml(startPack.id)}">
         <div class="valorant-configurator">
           ${valorantConfiguratorCompactHeader()}
           <div class="valorant-cfg-stack valorant-cfg-stack--selects">
-            <div class="field-block field-block--tight"><h4 class="valorant-inline-kicker">${ui("Package")}</h4><div class="quick-raid-grid valorant-pill-grid">${pills}</div></div>
+            <div class="field-block field-block--tight">
+              <h4 class="valorant-inline-kicker">${ui("Games")}</h4>
+              <div class="valorant-package-slider" role="group" aria-label="${escapeHtml(ui("Unrated games package"))}">
+                <div class="valorant-package-slider__readout">
+                  <span class="valorant-package-slider__readout-label" id="valUnratedReadoutLabel">${escapeHtml(startPack.label)}</span>
+                  <span class="valorant-package-slider__readout-price" id="valUnratedReadoutPrice">${displayMoney(valorantEurToStoredTotal(startPack.eur))}</span>
+                </div>
+                <div class="valorant-package-slider__track">
+                  <input type="range" id="valUnratedSlider" class="valorant-package-slider__input" min="0" max="${lastI}" step="1" value="${startIdx}" aria-valuemin="1" aria-valuemax="20" aria-valuenow="${g0}" aria-valuetext="${g0} games" aria-label="${escapeHtml(ui("Number of unrated games"))}">
+                  <div class="valorant-package-slider__marks" aria-hidden="true">${unratedMarks}</div>
+                </div>
+              </div>
+            </div>
             <div class="field-block field-block--tight">${valorantServerSelectHtml()}</div>
           </div>
         </div>`;
       }
       if (type === "valorant-leveling") {
-        const pills = valorantLevelPackages.map(p =>
-          `<button type="button" class="raid-pill${p.id === "l1" ? " active" : ""}" data-val-level="${escapeHtml(p.id)}"><strong>${escapeHtml(p.label)}</strong><span>${displayMoney(valorantEurToStoredTotal(p.eur))}</span></button>`).join("");
+        const li0 = valorantLevelPkgIdxFromId("l1");
+        const pack0 = valorantLevelPackages[li0];
+        const from0 = /^Level (\d+) to 20$/i.exec(pack0.label);
+        const fromLabel0 = from0 ? from0[1] : "1";
         return `
         <input type="hidden" id="valLevelPkg" value="l1">
         <div class="valorant-configurator">
           ${valorantConfiguratorCompactHeader()}
           <div class="valorant-cfg-stack valorant-cfg-stack--selects">
-            <div class="field-block field-block--tight"><h4 class="valorant-inline-kicker">${ui("Level range")}</h4><div class="quick-raid-grid valorant-pill-grid">${pills}</div></div>
+            <div class="field-block field-block--tight">
+              <h4 class="valorant-inline-kicker">${ui("Target level")}</h4>
+              <div class="valorant-level-stepper-wrap">
+                <div class="valorant-level-stepper" role="group" aria-label="${escapeHtml(ui("Account leveling package"))}">
+                  <button type="button" class="qty-step valorant-level-stepper__btn" id="valLevelMinus" aria-label="${escapeHtml(ui("Previous leveling tier"))}"><span class="qty-step-glyph" aria-hidden="true">−</span></button>
+                  <div class="valorant-level-stepper__mid">
+                    <span class="valorant-level-stepper__target" id="valLevelTargetDisplay">20</span>
+                    <span class="valorant-level-stepper__from" id="valLevelFromCaption">${escapeHtml(ui("From level " + fromLabel0))}</span>
+                  </div>
+                  <button type="button" class="qty-step valorant-level-stepper__btn" id="valLevelPlus" aria-label="${escapeHtml(ui("Next leveling tier"))}"><span class="qty-step-glyph" aria-hidden="true">+</span></button>
+                </div>
+              </div>
+            </div>
             <div class="field-block field-block--tight">${valorantServerSelectHtml()}</div>
           </div>
         </div>`;
@@ -6768,8 +7048,58 @@
           });
         });
       };
-      if (type === "valorant-unrated") bindPills("#detailSection [data-val-unrated]", "valUnratedPkg", b => b.dataset.valUnrated || "");
-      if (type === "valorant-leveling") bindPills("#detailSection [data-val-level]", "valLevelPkg", b => b.dataset.valLevel || "");
+      if (type === "valorant-unrated") {
+        const slider = $("valUnratedSlider");
+        const syncUnratedSlider = () => {
+          if (!slider) return;
+          const pack = valorantUnratedPackAtSliderIdx(slider.value);
+          const hid = $("valUnratedPkg");
+          if (hid) hid.value = pack.id;
+          const labelEl = $("valUnratedReadoutLabel");
+          const priceEl = $("valUnratedReadoutPrice");
+          if (labelEl) labelEl.textContent = pack.label;
+          if (priceEl) priceEl.textContent = displayMoney(valorantEurToStoredTotal(pack.eur));
+          const g = valorantUnratedGamesCount(pack);
+          slider.setAttribute("aria-valuenow", String(g));
+          slider.setAttribute("aria-valuetext", `${g} games`);
+          const idx = Math.round(Number(slider.value));
+          document.querySelectorAll("#orderForm .valorant-unrated-mark").forEach((el, i) => {
+            el.classList.toggle("is-active", i === idx);
+          });
+          updateTotal();
+        };
+        slider?.addEventListener("input", syncUnratedSlider);
+        slider?.addEventListener("change", syncUnratedSlider);
+        syncUnratedSlider();
+      }
+      if (type === "valorant-leveling") {
+        let levelIdx = valorantLevelPkgIdxFromId(val("valLevelPkg") || "l1");
+        const applyLevelIdx = () => {
+          levelIdx = Math.max(0, Math.min(valorantLevelPackages.length - 1, levelIdx));
+          const pack = valorantLevelPackages[levelIdx];
+          const hid = $("valLevelPkg");
+          if (hid) hid.value = pack.id;
+          const cap = $("valLevelTargetDisplay");
+          const sub = $("valLevelFromCaption");
+          if (cap) cap.textContent = "20";
+          if (sub) {
+            const m = /^Level (\d+) to 20$/i.exec(pack.label);
+            sub.textContent = ui(`From level ${m ? m[1] : "—"}`);
+          }
+          updateTotal();
+        };
+        $("valLevelMinus")?.addEventListener("click", e => {
+          e.preventDefault();
+          levelIdx--;
+          applyLevelIdx();
+        });
+        $("valLevelPlus")?.addEventListener("click", e => {
+          e.preventDefault();
+          levelIdx++;
+          applyLevelIdx();
+        });
+        applyLevelIdx();
+      }
       if (type === "valorant-battlepass") bindPills("#detailSection [data-val-bp]", "valBpPkg", b => b.dataset.valBp || "");
       if (type === "valorant-coaching") bindPills("#detailSection [data-val-coach]", "valCoachPkg", b => b.dataset.valCoach || "");
     }
@@ -7972,6 +8302,14 @@
           noteEl.textContent = "";
           noteEl.hidden = true;
         }
+      }
+      if (vForm && svc?.form === "valorant-unrated") {
+        const id = val("valUnratedPkg") || "u5";
+        const pack = valorantUnratedPackages.find(p => p.id === id) || valorantUnratedPackages[0];
+        const uLab = $("valUnratedReadoutLabel");
+        const uPrice = $("valUnratedReadoutPrice");
+        if (uLab) uLab.textContent = pack.label;
+        if (uPrice) uPrice.textContent = displayMoney(valorantEurToStoredTotal(pack.eur));
       }
       if (vForm) syncValorantPathRail();
       syncLoadoutQuickBundleHints();
