@@ -456,7 +456,7 @@
       const boost = g("circle");
       const soc = g("social");
       if (boost && soc) {
-        const socialImg = "assets/boost-social-bg.webp";
+        const socialImg = "assets/backgrounds/boost-social-bg.webp";
         chunks.push(`
         <article class="home-game-card home-combo-card" aria-label="${escapeHtml(ui("Boost+ and Social"))}">
           <div class="home-combo-split">
@@ -500,38 +500,38 @@
     }
 
     const serviceImages = {
-      blueprints: "assets/thumb-blueprints.webp",
-      guns: "assets/thumb-guns.webp",
-      loadouts: "assets/thumb-loadouts.webp",
-      coins: "assets/thumb-coins.webp",
-      seeds: "assets/thumb-seeds.webp",
-      depositary: "assets/thumb-depository.webp",
-      trials: "assets/thumb-trials.webp",
-      raids: "assets/thumb-raids.webp",
-      coaching: "assets/thumb-coaching.webp",
-      leveling: "assets/thumb-leveling.webp",
-      workshop: "assets/thumb-workshop.webp",
-      bosses: "assets/thumb-boss.webp",
-      expeditions: "assets/thumb-expedition.webp",
-      custom: "assets/thumb-private-order.webp",
-      services: "assets/thumb-private-order.webp",
-      "rank-boosting": "assets/valorant-rank-boosting.webp",
-      "placement-matches": "assets/valorant-placement-matches.webp",
-      "radiant-boost": "assets/valorant-radiant-boost.webp",
-      "ranked-wins": "assets/valorant-ranked-wins.webp",
-      "unrated-games": "assets/valorant-unrated-games.webp",
-      "account-leveling": "assets/valorant-account-leveling.webp",
-      "battle-pass": "assets/valorant-battle-pass.webp",
-      "mythic-plus": "assets/thumb-private-order.webp",
-      "raid-calendar": "assets/thumb-raids.webp",
-      arena: "assets/thumb-private-order.webp",
-      "gear-boost": "assets/thumb-loadouts.webp",
-      "gold-trade": "assets/thumb-coins.webp",
-      delves: "assets/thumb-private-order.webp",
-      dungeons: "assets/thumb-private-order.webp",
-      "request-a-service": "assets/thumb-private-order.webp",
-      "timewalking-mage-tower": "assets/thumb-private-order.webp",
-      mounts: "assets/thumb-private-order.webp"
+      blueprints: "assets/thumbnails/arc/thumb-blueprints.webp",
+      guns: "assets/thumbnails/arc/thumb-guns.webp",
+      loadouts: "assets/thumbnails/arc/thumb-loadouts.webp",
+      coins: "assets/thumbnails/arc/thumb-coins.webp",
+      seeds: "assets/thumbnails/arc/thumb-seeds.webp",
+      depositary: "assets/thumbnails/arc/thumb-depository.webp",
+      trials: "assets/thumbnails/arc/thumb-trials.webp",
+      raids: "assets/thumbnails/arc/thumb-raids.webp",
+      coaching: "assets/thumbnails/arc/thumb-coaching.webp",
+      leveling: "assets/thumbnails/arc/thumb-leveling.webp",
+      workshop: "assets/thumbnails/arc/thumb-workshop.webp",
+      bosses: "assets/thumbnails/arc/thumb-boss.webp",
+      expeditions: "assets/thumbnails/arc/thumb-expedition.webp",
+      custom: "assets/thumbnails/arc/thumb-private-order.webp",
+      services: "assets/thumbnails/arc/thumb-private-order.webp",
+      "rank-boosting": "assets/thumbnails/valorant/valorant-rank-boosting.webp",
+      "placement-matches": "assets/thumbnails/valorant/valorant-placement-matches.webp",
+      "radiant-boost": "assets/thumbnails/valorant/valorant-radiant-boost.webp",
+      "ranked-wins": "assets/thumbnails/valorant/valorant-ranked-wins.webp",
+      "unrated-games": "assets/thumbnails/valorant/valorant-unrated-games.webp",
+      "account-leveling": "assets/thumbnails/valorant/valorant-account-leveling.webp",
+      "battle-pass": "assets/thumbnails/valorant/valorant-battle-pass.webp",
+      "mythic-plus": "assets/thumbnails/arc/thumb-private-order.webp",
+      "raid-calendar": "assets/thumbnails/arc/thumb-raids.webp",
+      arena: "assets/thumbnails/arc/thumb-private-order.webp",
+      "gear-boost": "assets/thumbnails/arc/thumb-loadouts.webp",
+      "gold-trade": "assets/thumbnails/arc/thumb-coins.webp",
+      delves: "assets/thumbnails/arc/thumb-private-order.webp",
+      dungeons: "assets/thumbnails/arc/thumb-private-order.webp",
+      "request-a-service": "assets/thumbnails/arc/thumb-private-order.webp",
+      "timewalking-mage-tower": "assets/thumbnails/arc/thumb-private-order.webp",
+      mounts: "assets/thumbnails/arc/thumb-private-order.webp"
     };
 
     function categoryArtwork(id, label = "", thumbOverride) {
@@ -1641,7 +1641,7 @@
           </div>
           <div class="field-block">
             <div class="field-block-head"><h4>Raid Amount</h4></div>
-            <label class="event-switch event-mode-card is-block ely-event-mode" style="--event-bg:url('assets/event-mod.webp')"><input id="raidEventMode" type="checkbox" class="ely-toggle-input"><span class="ely-toggle-ui" aria-hidden="true"><span class="ely-toggle-track"><span class="ely-toggle-thumb"></span></span></span><span class="ely-event-mode-label">Event Mode</span></label>
+            <label class="event-switch event-mode-card is-block ely-event-mode" style="--event-bg:url('assets/thumbnails/arc/event-mod.webp')"><input id="raidEventMode" type="checkbox" class="ely-toggle-input"><span class="ely-toggle-ui" aria-hidden="true"><span class="ely-toggle-track"><span class="ely-toggle-thumb"></span></span></span><span class="ely-event-mode-label">Event Mode</span></label>
             <input id="raidCount" type="hidden" value="2">
             <div class="quick-raid-grid">${raidPackageButtons}</div>
             <p class="raid-panel-note">Event Mode adds ${moneyUSD(prices.event)} per selected raid when enabled.</p>

@@ -39,7 +39,7 @@
     }
 
     function valorantRankBadgeUrl(rankLabel) {
-      return "assets/ranks/rank-" + valorantRankTierSlug(rankLabel) + ".webp";
+      return "assets/thumbnails/valorant/ranks/rank-" + valorantRankTierSlug(rankLabel) + ".webp";
     }
 
     const VALORANT_RANK_SEGMENT_EUR = [

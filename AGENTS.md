@@ -10,26 +10,54 @@ If anything here conflicts with a one‑off user request, follow the user — bu
 
 ElysiumBoost is a **premium gaming boosting and item delivery website**. The site is a Discord‑ticket order desk: customers browse services, customize an order, add it to a cart, copy a clean ticket, open Discord, and paste it for a booster to fulfill.
 
-The entire site currently ships as a single static `index.html` plus an `assets/` folder. There is no build system, no framework, no bundler. Treat it as a hand‑authored static site.
+The site ships as static **`index.html`** with **`css/`** and **`js/`** modules and an organized **`assets/`** tree. There is no build system, framework, or bundler. Treat it as a hand‑authored static site.
 
 ### Project layout
 
 ```text
 /
-├── AGENTS.md            ← this file
-├── index.html           ← entire site: HTML + inline CSS + inline JS
-└── assets/              ← images, thumbnails, hero backgrounds, audio loop
+├── AGENTS.md
+├── README.md
+├── index.html
+├── css/
+│   ├── styles.css
+│   ├── responsive.css
+│   └── components/   (header, hero, cards, cart, forms — see file headers; rules may still live in styles.css until extracted)
+├── js/
+│   ├── main.js
+│   ├── config.js
+│   ├── products.js
+│   ├── cart.js       (also contains renderAll, renderDetail, …)
+│   ├── storage.js
+│   ├── validation.js
+│   ├── render.js     (placeholder for future split from cart.js)
+│   ├── receipt.js    (placeholder; receipt canvas lives in ui.js for now)
+│   ├── search.js
+│   ├── state.js
+│   └── ui.js
+├── assets/
+│   ├── logo/
+│   ├── backgrounds/
+│   ├── thumbnails/   (arc/, valorant/ incl. ranks/, wow/, cs2/, lol/)
+│   ├── audio/
+│   └── placeholders/
+└── tools/
+    ├── image-optimizer.js
+    └── split-responsive-css.py
 ```
 
-### Key regions inside `index.html`
+### Key regions
 
-| Region | Approximate lines | What lives there |
+| Area | Location | Contents |
 | --- | --- | --- |
-| `<style>` | 11 – 2296 | All site CSS, including responsive breakpoints at `1080px` and `720px`. |
-| `<body>` markup | 2298 – 2458 | Topbar, category bar, hero, home grid, service grid, detail panel, cart drawer, Embark‑ID modal, toast. |
-| `<script>` | 2460 – 4615 | Catalog data, render functions, pricing engine, cart logic, Discord ticket flow, audio control. |
+| Global CSS tokens & layout | `css/styles.css` | Variables, base layout, components |
+| Responsive overrides | `css/responsive.css` | `@media` blocks (loaded after `styles.css`) |
+| Catalog & games | `js/products.js` | `games[]`, categories |
+| Renders & order UI wiring | `js/cart.js` | `renderAll`, grids, detail, Arc/Valorant chrome |
+| Pricing & cart math | `js/ui.js` | `calculate()`, `updateTotal()` |
+| Search dropdown | `js/search.js` | `searchEntries`, `runSiteSearch` |
 
-When you reference code, cite specific line ranges. Don't say "in the JS"; say "`addToCart()` at `index.html:4251–4268`".
+When you reference code, cite file paths and line ranges (e.g. `js/cart.js`, `css/styles.css`).
 
 ---
 
@@ -116,7 +144,7 @@ Two card shapes exist. They are emitted by `cardMarkup(service, popular)` at `in
 
 - Always emit cards via `cardMarkup()`. Never write per‑card inline HTML in a render function.
 - Every card must show: thumbnail, title, short blurb, price (or `CUSTOM` for private orders), one CTA.
-- Every card thumbnail must come from the `serviceImages` lookup at `index.html:3105–3121` via `categoryArtwork(categoryId, label)`. If you add a new category, add its thumb file in `assets/` and a key in `serviceImages` in the same commit.
+- Every card thumbnail must come from the `serviceImages` lookup in `js/cart.js` via `categoryArtwork(categoryId, label)`. If you add a new category, add its thumb under `assets/thumbnails/` (e.g. `arc/` or `valorant/`) and a key in `serviceImages` in the same commit.
 - Sale / deal indicators come from `serviceSaleBadge(service)` and `servicePrice(service)`. If a service has `oldUSD`, the old price is shown with the diagonal strike. Don't recompute discount badges in markup.
 - Card top edge uses `::before` with a violet → gold → violet gradient (1 line of CSS). Never put green in that gradient.
 - Never put more than one ribbon per card. Ribbons are positioned with `.cat-ribbon` and use the `hot / price-drop / recommended / new` tones at `index.html:475–514`.
