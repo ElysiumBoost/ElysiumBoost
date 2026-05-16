@@ -2386,33 +2386,27 @@
     }
 
     .valorant-rank-card {
-      padding: 12px 12px 14px;
+      padding: 14px 14px 16px;
       border-radius: 12px;
-      border: 1px solid rgba(155, 104, 255, .34);
+      border: 1px solid rgba(155, 104, 255, .4);
       background:
-        linear-gradient(180deg, rgba(38, 31, 91, .5), rgba(10, 8, 28, .78));
+        linear-gradient(175deg, rgba(28, 22, 62, .72), rgba(6, 4, 16, .92));
       box-shadow:
-        0 12px 32px rgba(0, 0, 0, .22),
-        inset 0 1px 0 rgba(255, 255, 255, .05);
+        0 14px 40px rgba(0, 0, 0, .28),
+        inset 0 1px 0 rgba(255, 255, 255, .06),
+        0 0 32px rgba(122, 77, 255, .12);
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 0;
       min-width: 0;
     }
 
-    .valorant-rank-card-visual {
+    .valorant-rank-card .valorant-rank-card-visual {
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: 52px;
-    }
-
-    .valorant-rank-card label {
-      color: #dcd6ff;
-      font-size: 10px;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      font-weight: 700;
+      min-height: 108px;
+      margin: 6px 0 10px;
     }
 
     .valorant-rank-card select {
@@ -2423,6 +2417,220 @@
       min-height: 42px;
       font-size: 13px;
       color: var(--text);
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .valorant-rank-card__head,
+    .valorant-rs-card-head {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 2px;
+    }
+
+    .valorant-rank-card__head .valorant-rs-head-text,
+    .valorant-rs-card-head .valorant-rs-head-text {
+      font-family: var(--display);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .05em;
+      text-transform: none;
+      color: #fdfbff;
+      line-height: 1.2;
+    }
+
+    .valorant-rs-svg {
+      width: 22px;
+      height: 22px;
+      flex-shrink: 0;
+      color: #c8b8ff;
+      filter: drop-shadow(0 0 10px rgba(122, 77, 255, .4));
+    }
+
+    .valorant-rank-crest {
+      position: relative;
+      width: clamp(76px, 15vw, 118px);
+      aspect-ratio: 1;
+      margin: 0 auto;
+      clip-path: polygon(12% 4%, 88% 4%, 100% 26%, 100% 74%, 50% 100%, 0% 74%, 0% 26%);
+      border-radius: 4px;
+      background: linear-gradient(168deg, var(--vcrest-mid, #8b7adb), var(--vcrest-deep, #3d2a7a));
+      box-shadow:
+        0 0 28px var(--vcrest-glow, rgba(122, 77, 255, .35)),
+        inset 0 1px 0 rgba(255, 255, 255, .12);
+      transition: background .22s ease, box-shadow .22s ease;
+    }
+
+    .valorant-rank-crest::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 44%;
+      height: 44%;
+      transform: translate(-50%, -52%);
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 28%, #fffef8, #ffd166 52%, #c97510 100%);
+      box-shadow: 0 0 22px rgba(255, 209, 102, .55);
+    }
+
+    .valorant-rank-crest[data-tier="iron"] {
+      --vcrest-mid: #8b7d7a;
+      --vcrest-deep: #3d3430;
+      --vcrest-glow: rgba(180, 160, 150, .28);
+    }
+
+    .valorant-rank-crest[data-tier="bronze"] {
+      --vcrest-mid: #b87a52;
+      --vcrest-deep: #5c3a22;
+      --vcrest-glow: rgba(205, 130, 80, .3);
+    }
+
+    .valorant-rank-crest[data-tier="silver"] {
+      --vcrest-mid: #c6cad1;
+      --vcrest-deep: #5a6169;
+      --vcrest-glow: rgba(200, 210, 225, .32);
+    }
+
+    .valorant-rank-crest[data-tier="gold"] {
+      --vcrest-mid: #e8c066;
+      --vcrest-deep: #8a5a12;
+      --vcrest-glow: rgba(255, 209, 102, .38);
+    }
+
+    .valorant-rank-crest[data-tier="platinum"] {
+      --vcrest-mid: #5ee7d8;
+      --vcrest-deep: #1a6b62;
+      --vcrest-glow: rgba(95, 231, 216, .28);
+    }
+
+    .valorant-rank-crest[data-tier="diamond"] {
+      --vcrest-mid: #8ec8ff;
+      --vcrest-deep: #2a5e9a;
+      --vcrest-glow: rgba(120, 190, 255, .32);
+    }
+
+    .valorant-rank-crest[data-tier="ascendant"] {
+      --vcrest-mid: #c57fff;
+      --vcrest-deep: #5a2a8a;
+      --vcrest-glow: rgba(180, 110, 255, .32);
+    }
+
+    .valorant-rank-crest[data-tier="immortal"] {
+      --vcrest-mid: #7ecfff;
+      --vcrest-deep: #2a6a8f;
+      --vcrest-glow: rgba(120, 200, 255, .3);
+    }
+
+    .valorant-rank-crest[data-tier="radiant"] {
+      --vcrest-mid: #fff6d0;
+      --vcrest-deep: #ffb347;
+      --vcrest-glow: rgba(255, 220, 140, .42);
+    }
+
+    .valorant-rank-crest[data-tier="unranked"] {
+      --vcrest-mid: #6a6288;
+      --vcrest-deep: #2a243f;
+      --vcrest-glow: rgba(122, 77, 255, .22);
+    }
+
+    .valorant-rank-server-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    .valorant-rs-card {
+      padding: 14px 14px 16px;
+      border-radius: 12px;
+      border: 1px solid rgba(155, 104, 255, .4);
+      background:
+        linear-gradient(175deg, rgba(28, 22, 62, .72), rgba(6, 4, 16, .92));
+      box-shadow:
+        0 14px 40px rgba(0, 0, 0, .28),
+        inset 0 1px 0 rgba(255, 255, 255, .06),
+        0 0 32px rgba(122, 77, 255, .12);
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      min-height: 0;
+    }
+
+    .valorant-rs-card--meta .valorant-rs-meta-inner {
+      flex: 1 1 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      justify-content: space-between;
+      min-height: 100%;
+    }
+
+    .valorant-rs-card--rank {
+      gap: 0;
+    }
+
+    .valorant-rs-card--rank .valorant-rs-visual {
+      flex: 1 1 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 120px;
+      margin: 8px 0 12px;
+    }
+
+    .valorant-rs-card .valorant-rs-select select,
+    .valorant-rs-card .valorant-rs-block select {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid rgba(155, 104, 255, .48);
+      background: rgba(14, 11, 34, .94);
+      min-height: 44px;
+      font-size: 13px;
+      color: var(--text);
+      box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .2);
+    }
+
+    .valorant-rs-card .valorant-rs-qty {
+      margin: 0;
+    }
+
+    .valorant-rs-card .valorant-rs-qty > label.sr-only {
+      margin: 0;
+    }
+
+    .valorant-rs-stepper {
+      border-radius: 10px;
+      min-height: 48px;
+    }
+
+    .valorant-rs-stepper .qty-step {
+      min-width: 44px;
+      font-family: var(--display);
+      font-weight: 800;
+      color: var(--gold);
+    }
+
+    .valorant-rs-stepper .qty-step-glyph {
+      font-size: 15px;
+      line-height: 1;
+    }
+
+    @media (max-width: 640px) {
+      .valorant-rank-server-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
     .valorant-inline-kicker {
@@ -6178,6 +6386,99 @@
       return `<div><label for="valServer">Server</label><select id="valServer">${valorantServers.map(s => `<option value="${escapeHtml(s)}"${s === "EU" ? " selected" : ""}>${escapeHtml(s)}</option>`).join("")}</select></div>`;
     }
 
+    const VAL_SVG_RANK = `<svg class="valorant-rs-svg" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 1.75 20 5.35V11c0 5.45-3.6 9.85-8 11.55C7.6 20.85 4 16.45 4 11V5.35L12 1.75z"/></svg>`;
+    const VAL_SVG_SERVER = `<svg class="valorant-rs-svg" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M5 4.5h14v4H5v-4zm0 5.75h14v4H5v-4zm0 5.75h9.5v4H5v-4z"/></svg>`;
+    const VAL_SVG_GAMES = `<svg class="valorant-rs-svg" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 12.5v-2h3.25v2.5H8v-.5zm7-2.75a1.35 1.35 0 100 2.7 1.35 1.35 0 000-2.7zm3.4 1.35a1.75 1.75 0 11-3.5 0 1.75 1.75 0 013.5 0zM6.5 11H8v2H6.5v-2z"/></svg>`;
+
+    function valorantRankServerTwinHtml(opts) {
+      const {
+        twinKey,
+        rankSelectId,
+        rankHeadline,
+        rankOptionsHtml,
+        qtyId,
+        qtyLabel,
+        qtyValue,
+        qtyMin,
+        qtyMax,
+        decAria,
+        incAria
+      } = opts;
+      const serverOpts = valorantServers.map(s => `<option value="${escapeHtml(s)}"${s === "EU" ? " selected" : ""}>${escapeHtml(s)}</option>`).join("");
+      return `
+    <div class="valorant-rank-server-grid" data-valorant-twin="${twinKey}">
+      <div class="valorant-rs-card valorant-rs-card--rank">
+        <div class="valorant-rs-card-head">${VAL_SVG_RANK}<span class="valorant-rs-head-text">${escapeHtml(rankHeadline)}</span></div>
+        <div class="valorant-rs-visual"><div class="valorant-rank-crest" data-valorant-rank-crest aria-hidden="true"></div></div>
+        <div class="valorant-rs-select">
+          <label class="sr-only" for="${rankSelectId}">${escapeHtml(rankHeadline)}</label>
+          <select id="${rankSelectId}">${rankOptionsHtml}</select>
+        </div>
+      </div>
+      <div class="valorant-rs-card valorant-rs-card--meta">
+        <div class="valorant-rs-meta-inner">
+          <div class="valorant-rs-block">
+            <div class="valorant-rs-card-head">${VAL_SVG_SERVER}<span class="valorant-rs-head-text">${escapeHtml(ui("Server"))}</span></div>
+            <label class="sr-only" for="valServer">${escapeHtml(ui("Server"))}</label>
+            <select id="valServer">${serverOpts}</select>
+          </div>
+          <div class="valorant-rs-block">
+            <div class="valorant-rs-card-head">${VAL_SVG_GAMES}<span class="valorant-rs-head-text">${escapeHtml(qtyLabel)}</span></div>
+            <div class="qty-field valorant-rs-qty">
+              <label class="sr-only" for="${qtyId}">${escapeHtml(qtyLabel)}</label>
+              <div class="qty-stepper valorant-rs-stepper" data-qty-wrap>
+                <button type="button" class="qty-step qty-step--minus" data-qty-for="${qtyId}" data-qty-step="-1" aria-label="${escapeHtml(decAria)}"><span class="qty-step-glyph" aria-hidden="true">&lt;</span></button>
+                <input id="${qtyId}" class="qty-stepper-input" type="number" inputmode="numeric" min="${qtyMin}" max="${qtyMax}" value="${qtyValue}">
+                <button type="button" class="qty-step qty-step--plus" data-qty-for="${qtyId}" data-qty-step="1" aria-label="${escapeHtml(incAria)}"><span class="qty-step-glyph" aria-hidden="true">&gt;</span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>`;
+    }
+
+    function valorantRankTierKey(label) {
+      const s = String(label || "").trim().toLowerCase();
+      if (!s || s === "—") return "iron";
+      if (s.includes("radiant")) return "radiant";
+      if (s.includes("immortal")) return "immortal";
+      if (s.includes("ascendant")) return "ascendant";
+      if (s.includes("diamond")) return "diamond";
+      if (s.includes("platinum")) return "platinum";
+      if (s.includes("gold")) return "gold";
+      if (s.includes("silver")) return "silver";
+      if (s.includes("bronze")) return "bronze";
+      if (s.includes("iron")) return "iron";
+      if (s.includes("unranked")) return "unranked";
+      return "iron";
+    }
+
+    function syncValorantRankCrests() {
+      const form = $("orderForm");
+      if (!form) return;
+      form.querySelectorAll("[data-valorant-rank-card]").forEach(card => {
+        const role = card.getAttribute("data-valorant-rank-card");
+        const crest = card.querySelector(".valorant-rank-crest");
+        if (!crest || !role) return;
+        const selId = role === "current" ? "valRbCurrent" : role === "desired" ? "valRbDesired" : null;
+        if (!selId) return;
+        const sel = $(selId);
+        crest.dataset.tier = valorantRankTierKey(sel ? sel.value : "");
+      });
+      const twinPm = form.querySelector('[data-valorant-twin="placement"] .valorant-rank-crest');
+      if (twinPm && $("valPmRank")) twinPm.dataset.tier = valorantRankTierKey(val("valPmRank"));
+      const twinRw = form.querySelector('[data-valorant-twin="ranked-wins"] .valorant-rank-crest');
+      if (twinRw && $("valRwRank")) twinRw.dataset.tier = valorantRankTierKey(val("valRwRank"));
+    }
+
+    function wireValorantRankCrestSync() {
+      ["valRbCurrent", "valRbDesired", "valPmRank", "valRwRank"].forEach(id => {
+        $(id)?.addEventListener("change", syncValorantRankCrests);
+      });
+      syncValorantRankCrests();
+    }
+
     function valorantModeHtml() {
       return `
         <input type="hidden" id="valMode" value="solo">
@@ -6615,17 +6916,17 @@
           <div class="valorant-cfg-stack valorant-cfg-stack--selects">
             <div class="valorant-rank-row">
               <div class="valorant-rank-card" data-valorant-rank-card="current">
+                <div class="valorant-rank-card__head">${VAL_SVG_RANK}<span class="valorant-rs-head-text">${ui("Current Rank")}</span></div>
                 <div class="valorant-rank-card-visual" aria-hidden="true">
-                  <div class="valorant-rank-card-ph"></div>
+                  <div class="valorant-rank-crest" aria-hidden="true"></div>
                 </div>
-                <label for="valRbCurrent">${ui("Current Rank")}</label>
                 <select id="valRbCurrent">${valorantRankOptionsHtml(VALORANT_RANKS, "Silver III")}</select>
               </div>
               <div class="valorant-rank-card" data-valorant-rank-card="desired">
+                <div class="valorant-rank-card__head">${VAL_SVG_RANK}<span class="valorant-rs-head-text">${ui("Desired Rank")}</span></div>
                 <div class="valorant-rank-card-visual" aria-hidden="true">
-                  <div class="valorant-rank-card-ph"></div>
+                  <div class="valorant-rank-crest" aria-hidden="true"></div>
                 </div>
-                <label for="valRbDesired">${ui("Desired Rank")}</label>
                 <select id="valRbDesired">${valorantRankOptionsHtml(desiredRanks, "Gold I")}</select>
               </div>
             </div>
@@ -6639,17 +6940,24 @@
       }
       if (type === "valorant-placement") {
         const rankKeys = Object.keys(valorantPlacementRankEur);
+        const rankOpts = rankKeys.map(k => `<option value="${escapeHtml(k)}"${k === "Gold" ? " selected" : ""}>${escapeHtml(k)}</option>`).join("");
         return `
         <div class="valorant-configurator">
           ${valorantConfiguratorCompactHeader()}
           <div class="valorant-cfg-stack valorant-cfg-stack--selects">
-            <div class="field-block field-block--tight">
-              <div class="field-grid">
-                <div><label for="valPmRank">${ui("Last Known Rank")}</label><select id="valPmRank">${rankKeys.map(k => `<option value="${escapeHtml(k)}"${k === "Gold" ? " selected" : ""}>${escapeHtml(k)}</option>`).join("")}</select></div>
-                ${qtyField("valPmGames", ui("Number of Games"), 5, 1, 5)}
-              </div>
-            </div>
-            <div class="field-block field-block--tight">${valorantServerSelectHtml()}</div>
+            ${valorantRankServerTwinHtml({
+              twinKey: "placement",
+              rankSelectId: "valPmRank",
+              rankHeadline: ui("Last Known Rank"),
+              rankOptionsHtml: rankOpts,
+              qtyId: "valPmGames",
+              qtyLabel: ui("Number of Games"),
+              qtyValue: 5,
+              qtyMin: 1,
+              qtyMax: 5,
+              decAria: ui("Decrease games"),
+              incAria: ui("Increase games")
+            })}
           </div>
         </div>`;
       }
@@ -6674,13 +6982,19 @@
         <div class="valorant-configurator">
           ${valorantConfiguratorCompactHeader()}
           <div class="valorant-cfg-stack valorant-cfg-stack--selects">
-            <div class="field-block field-block--tight">
-              <div class="field-grid">
-                <div><label for="valRwRank">${ui("Current Rank")}</label><select id="valRwRank">${valorantRankOptionsHtml(rwRanks, "Gold I")}</select></div>
-                ${qtyField("valRwWins", ui("Number of Wins"), 3, 1, 10)}
-              </div>
-            </div>
-            <div class="field-block field-block--tight">${valorantServerSelectHtml()}</div>
+            ${valorantRankServerTwinHtml({
+              twinKey: "ranked-wins",
+              rankSelectId: "valRwRank",
+              rankHeadline: ui("Last Known Rank"),
+              rankOptionsHtml: valorantRankOptionsHtml(rwRanks, "Gold I"),
+              qtyId: "valRwWins",
+              qtyLabel: ui("Number of Wins"),
+              qtyValue: 3,
+              qtyMin: 1,
+              qtyMax: 10,
+              decAria: ui("Decrease wins"),
+              incAria: ui("Increase wins")
+            })}
           </div>
         </div>`;
       }
@@ -6772,6 +7086,7 @@
       if (type === "valorant-leveling") bindPills("#detailSection [data-val-level]", "valLevelPkg", b => b.dataset.valLevel || "");
       if (type === "valorant-battlepass") bindPills("#detailSection [data-val-bp]", "valBpPkg", b => b.dataset.valBp || "");
       if (type === "valorant-coaching") bindPills("#detailSection [data-val-coach]", "valCoachPkg", b => b.dataset.valCoach || "");
+      wireValorantRankCrestSync();
     }
 
     function wireForm(type) {
@@ -7973,7 +8288,10 @@
           noteEl.hidden = true;
         }
       }
-      if (vForm) syncValorantPathRail();
+      if (vForm) {
+        syncValorantPathRail();
+        syncValorantRankCrests();
+      }
       syncLoadoutQuickBundleHints();
     }
 
