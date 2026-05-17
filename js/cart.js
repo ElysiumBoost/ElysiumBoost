@@ -319,17 +319,15 @@
       const gl = $("gameMenuBtn")?.querySelector(".game-menu-btn-label");
       if (gl) gl.textContent = ui("Games");
       $("clearService").textContent = ui("Clear");
-      $("addToCart").textContent = ui("Add to Order");
-      $("copyOrder").textContent = ui("Copy Discord Ticket");
+      $("addToCart").textContent = ui("Add to Cart");
+      $("copyOrder").textContent = ui("Copy Order & Open Discord");
       const dlR = $("downloadOrderReceipt");
-      if (dlR) dlR.textContent = ui("Download Receipt Image");
+      if (dlR) dlR.textContent = ui("Download receipt image");
       const vNote = $("cartVerifyNote");
-      if (vNote) vNote.textContent = ui("Attach the receipt image to Discord if support requests visual confirmation.");
+      if (vNote) vNote.textContent = ui("Optional: save a receipt image if support asks for a visual copy of your order.");
       syncCompactToggleLabel();
-      const discA = document.querySelector('a[href*="1499796035382415462"]');
-      if (discA) discA.textContent = ui("Open Discord");
-      const fb = $("cartFeedbackLink");
-      if (fb) fb.textContent = ui("Leave feedback");
+      const discAnchors = document.querySelectorAll(".topbar-discord, .site-footer-actions a[href*='1499796035382415462']");
+      discAnchors.forEach(a => { a.textContent = ui("Join Discord"); });
       const drawerH = document.querySelector(".drawer-head h2");
       if (drawerH) drawerH.textContent = ui("Order center");
       const ctl = $("cartTotalLabel");
@@ -672,27 +670,19 @@
     }
 
     function renderPopular() {
-      const game = currentGame();
-      if (!game) return;
-      if (game.id === "circle" || game.id === "valorant" || game.id === "faceit" || game.id === "premier" || game.id === "social" || game.id === "arc") {
-        $("popularHead").classList.add("is-hidden");
-        $("popularGrid").classList.add("is-hidden");
-        $("popularGrid").innerHTML = "";
-        return;
+      const ph = $("popularHead");
+      const pg = $("popularGrid");
+      if (ph) {
+        ph.classList.add("is-hidden");
+        ph.setAttribute("hidden", "");
+        ph.setAttribute("aria-hidden", "true");
       }
-      $("popularTitle").textContent = game.id === "arc" ? ui("Featured Arc Raiders Services") : ui("Popular") + " " + ui(game.label) + " " + ui("Services");
-      $("popularCopy").textContent = game.id === "arc" ? ui("Curated starters — Trials, guns, blueprints, and coins — without repeating your open category.") : ui("Most requested services for this game.");
-      const visibleIds = new Set(game.categories.length
-        ? game.services.filter(service => service.category === state.category).map(service => service.id)
-        : [state.serviceId]);
-      const list = game.popular
-        .map(id => game.services.find(service => service.id === id))
-        .filter(service => service && !visibleIds.has(service.id))
-        .slice(0, 3);
-      $("popularHead").classList.toggle("is-hidden", list.length === 0);
-      $("popularGrid").classList.toggle("is-hidden", list.length === 0);
-      $("popularGrid").innerHTML = list.map(service => cardMarkup(service, true)).join("");
-      bindServiceButtons();
+      if (pg) {
+        pg.classList.add("is-hidden");
+        pg.innerHTML = "";
+        pg.setAttribute("hidden", "");
+        pg.setAttribute("aria-hidden", "true");
+      }
     }
 
     function renderServices() {
@@ -791,8 +781,24 @@
       }
     }
 
-    function premiumCardBullets() {
-      return `<ul class="service-card__bullets"><li>${ui("Manual delivery — Discord ticket & verified booster")}</li><li>${ui("Your currency on the ticket and in cart")}</li><li>${ui("No cheats — safety-first process")}</li></ul>`;
+    function arcPremiumBadgeStrip(service) {
+      const game = currentGame();
+      if (!game || game.id !== "arc") {
+        return `<ul class="service-card__bullets"><li>${ui("Manual delivery — Discord ticket & verified booster")}</li><li>${ui("Your currency on the ticket and in cart")}</li><li>${ui("No cheats — safety-first process")}</li></ul>`;
+      }
+      const form = service.form || "";
+      const tags = [];
+      const push = label => {
+        if (!tags.includes(label)) tags.push(label);
+      };
+      push(ui("Manual Delivery"));
+      if (["raid", "trials", "expedition", "boss", "pvp"].includes(form)) push(ui("In-Raid Delivery"));
+      if (["expedition", "trials", "coins"].includes(form)) push(ui("Extract Guaranteed"));
+      push(ui("No Cheats"));
+      if (["trials", "coins", "blueprints", "guns"].includes(form) && tags.length < 5) push(ui("Fast Discord Support"));
+      const shown = tags.slice(0, 4);
+      const pills = shown.map(t => `<span class="arc-premium-pill">${escapeHtml(t)}</span>`).join("");
+      return `<div class="service-card__arc-badges" aria-label="${escapeHtml(ui("Service assurances"))}">${pills}</div>`;
     }
 
     function buildDetailSpecs(service) {
@@ -822,6 +828,8 @@
     function cardMarkup(service, popular) {
       const serviceVisual = categoryArtwork(service.category || "custom", service.cardTitle);
       const priceBlock = `${(service.valorantCustomPrice || service.form === "valorant-radiant") ? "" : "<small>From</small>"}${servicePrice(service)}`;
+      const mid = arcPremiumBadgeStrip(service);
+      const ctaLabel = ui("Choose Service");
       if (popular) {
         return `
           <article class="popular-card">
@@ -831,9 +839,9 @@
               <div class="popular-card__body">
                 <h3>${ui(service.cardTitle)}</h3>
                 <p>${ui(service.short)}</p>
-                ${premiumCardBullets()}
+                ${mid}
                 <div class="price">${priceBlock}</div>
-                <button class="service-btn btn-premium ${state.serviceId === service.id ? "active" : ""}" type="button" data-service="${service.id}">${ui("View Details")}</button>
+                <button class="service-btn btn-premium ${state.serviceId === service.id ? "active" : ""}" type="button" data-service="${service.id}">${ctaLabel}</button>
               </div>
             </div>
           </article>
@@ -845,10 +853,10 @@
           <div class="service-card__body">
             <h3>${ui(service.cardTitle)}</h3>
             <p>${ui(service.short)}</p>
-            ${premiumCardBullets()}
+            ${mid}
             <footer>
               <div class="price">${priceBlock}</div>
-              <button class="service-btn btn-glass ${state.serviceId === service.id ? "active" : ""}" type="button" data-service="${service.id}">${ui("Details")}</button>
+              <button class="service-btn btn-glass ${state.serviceId === service.id ? "active" : ""}" type="button" data-service="${service.id}">${ctaLabel}</button>
             </footer>
           </div>
         </article>
@@ -1253,13 +1261,13 @@
     }
 
     function valorantServerSelectHtml() {
-      return `<div><label for="valServer">Server</label><select id="valServer">${valorantServers.map(s => `<option value="${escapeHtml(s)}"${s === "EU" ? " selected" : ""}>${escapeHtml(s)}</option>`).join("")}</select></div>`;
+      return `<div class="valorant-field-region"><label for="valServer">${ui("Region")}</label><select id="valServer">${valorantServers.map(s => `<option value="${escapeHtml(s)}"${s === "EU" ? " selected" : ""}>${escapeHtml(s)}</option>`).join("")}</select></div>`;
     }
 
     function valorantModeHtml() {
       return `
         <input type="hidden" id="valMode" value="solo">
-        <div class="field-block valorant-panel-tight"><h4>Mode</h4>
+        <div class="field-block valorant-panel-tight"><h4>${ui("Queue type")}</h4>
           <div class="raid-toggle-grid valorant-mode-pills">
             <button class="raid-pill active" type="button" data-val-mode="solo"><strong>Solo</strong></button>
             <button class="raid-pill" type="button" data-val-mode="duo"><strong>Duo</strong></button>
@@ -1443,7 +1451,7 @@
       const pathRailExtra = svc.form === "valorant-rank-boost" ? " valorant-path-rail--rank-boost" : "";
       wrap.innerHTML = `
         <div id="valorantPathRail" class="valorant-path-rail${pathRailExtra}" aria-live="polite"></div>
-        ${customize ? `<section class="valorant-customize-surface" aria-label="${escapeHtml(ui("Customize"))}"><h4 class="valorant-block-kicker">${escapeHtml(ui("Customize"))}</h4>${customize}</section>` : ""}
+        ${customize ? `<section class="valorant-customize-surface" aria-label="${escapeHtml(ui("Extra options"))}"><h4 class="valorant-block-kicker">${escapeHtml(ui("Extra options"))}</h4>${customize}</section>` : ""}
         <p class="valorant-mini-promo">${escapeHtml(ui("Manual completion · VPN-safe routing · Discord confirmation on every order."))}</p>
         <div class="valorant-summary-panel valorant-summary-panel--sticky">
           <h4 class="valorant-summary-title">${escapeHtml(ui("Breakdown"))}</h4>
@@ -1712,24 +1720,28 @@
       if (type === "valorant-rank-boost") {
         const desiredRanks = [...VALORANT_RANKS.slice(1), "Radiant"];
         return `
-        <div class="valorant-configurator valorant-rank-boost">
+        <div class="valorant-configurator valorant-rank-boost valorant-rank-calculator">
           ${valorantConfiguratorCompactHeader()}
-          <div class="valorant-rank-select-panel">
-            <div class="valorant-rank-tier-grid">
-              <div class="field-block field-block--tight valorant-rank-field">
-                <label for="valRbCurrent">${ui("Current Rank")}</label>
-                <select id="valRbCurrent">${valorantRankOptionsHtml(VALORANT_RANKS, "Silver III")}</select>
+          <div class="valorant-calculator-panel" role="group" aria-label="${escapeHtml(ui("Rank boost calculator"))}">
+            <div class="valorant-rank-select-panel">
+              <div class="valorant-calculator-row valorant-calculator-row--ranks">
+                <div class="valorant-rank-tier-grid">
+                  <div class="field-block field-block--tight valorant-rank-field">
+                    <label for="valRbCurrent">${ui("Current Rank")}</label>
+                    <select id="valRbCurrent">${valorantRankOptionsHtml(VALORANT_RANKS, "Silver III")}</select>
+                  </div>
+                  <div class="field-block field-block--tight valorant-rank-field">
+                    <label for="valRbDesired">${ui("Desired Rank")}</label>
+                    <select id="valRbDesired">${valorantRankOptionsHtml(desiredRanks, "Gold I")}</select>
+                  </div>
+                </div>
               </div>
-              <div class="field-block field-block--tight valorant-rank-field">
-                <label for="valRbDesired">${ui("Desired Rank")}</label>
-                <select id="valRbDesired">${valorantRankOptionsHtml(desiredRanks, "Gold I")}</select>
+              <div class="field-block field-block--tight valorant-calculator-row valorant-calculator-row--rr">
+                <div class="field-grid field-grid--rr">${valorantRRSelectHtml()}</div>
               </div>
+              <p class="valorant-rb-hint" id="valRbHint" hidden></p>
+              <div class="field-block field-block--tight valorant-calculator-row valorant-calculator-row--region">${valorantServerSelectHtml()}</div>
             </div>
-            <div class="field-block field-block--tight">
-              <div class="field-grid field-grid--rr">${valorantRRSelectHtml()}</div>
-            </div>
-            <p class="valorant-rb-hint" id="valRbHint" hidden></p>
-            <div class="field-block field-block--tight">${valorantServerSelectHtml()}</div>
           </div>
         </div>`;
       }

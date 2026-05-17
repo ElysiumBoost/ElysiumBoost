@@ -346,20 +346,20 @@
         title: "Buy Arc Raiders Services",
         copy: "Choose an Arc Raiders category, customize the service, and copy a Discord-ready order with USD booster totals.",
         categories: [
-          { id: "blueprints", label: "All Blueprints", icon: "i-blueprint", badge: "HOT", badgeTone: "hot" },
-          { id: "guns", label: "All Guns", icon: "i-gun", badge: "PRICE DROP", badgeTone: "price-drop" },
-          { id: "loadouts", label: "Custom Loadout", icon: "i-loadout", badge: "POPULAR", badgeTone: "popular" },
+          { id: "blueprints", label: "Blueprints", icon: "i-blueprint", badge: "HOT", badgeTone: "hot" },
+          { id: "guns", label: "Weapons & Gear", icon: "i-gun", badge: "PRICE DROP", badgeTone: "price-drop" },
+          { id: "loadouts", label: "Augments & Shields", icon: "i-loadout", badge: "POPULAR", badgeTone: "popular" },
           { id: "coins", label: "Raider Coins", icon: "i-coins", badge: "PRICE DROP", badgeTone: "price-drop" },
           { id: "seeds", label: "Assorted Seeds", icon: "i-coins", badge: "NEW", badgeTone: "new" },
           { id: "depositary", label: "Depositary Service", icon: "i-depository" },
-          { id: "trials", label: "Trials", icon: "i-trials", badge: "RECOMMENDED", badgeTone: "recommended" },
-          { id: "raids", label: "All Raids", icon: "i-raid" },
-          { id: "coaching", label: "Coaching", icon: "i-coach", badge: "RECOMMENDED", badgeTone: "recommended" },
+          { id: "trials", label: "Trials Boost", icon: "i-trials", badge: "RECOMMENDED", badgeTone: "recommended" },
+          { id: "raids", label: "Raid Boost", icon: "i-raid" },
+          { id: "coaching", label: "Raid Coaching", icon: "i-coach", badge: "RECOMMENDED", badgeTone: "recommended" },
           { id: "leveling", label: "Leveling", icon: "i-level" },
           { id: "workshop", label: "Workshop & Scrappy", icon: "i-workshop", badge: "RECOMMENDED", badgeTone: "recommended" },
           { id: "bosses", label: "Boss & Puzzle", icon: "i-skull" },
           { id: "expeditions", label: "Expedition Boost", icon: "i-expedition", badge: "HOT", badgeTone: "hot" },
-          { id: "custom", label: "Private Order", icon: "i-private" }
+          { id: "custom", label: "Custom Orders", icon: "i-private" }
         ],
         popular: ["trials", "guns", "blueprints", "coins"],
         services: [
@@ -376,7 +376,7 @@
           { ...arcService("workshop", "workshop", "Arc Raiders Workshop & Scrappy", "Workshop & Scrappy", "i-workshop", 3, "+", "Upgrade workshops from level 1 to 3 or select Scrappy levels from 1 to 5.", "30-60 Minutes", "workshop"), noDiscount: true },
           arcService("expedition", "expeditions", "Arc Raiders Expedition Boost", "Expedition Boost", "i-expedition", 10, "+", "Choose a specific expedition stage.", "30-60 Minutes", "expedition", 13.33),
           { ...arcService("boss", "bosses", "Arc Raiders Boss & Puzzle", "Boss & Puzzle", "i-skull", 20, "", "Queen, Matriarch, or Harvester Puzzle completion request.", "30-90 Minutes", "boss"), noDiscount: true },
-          arcService("private", "custom", "Private Arc Raiders Order", "Private Order", "i-private", 0, "", "Write a custom request for manual boosters review.", "Manual", "private")
+          arcService("private", "custom", "Private Arc Raiders Order", "Custom Order", "i-private", 0, "", "Write a custom request for manual boosters review.", "Manual", "private")
         ]
       }
     ];

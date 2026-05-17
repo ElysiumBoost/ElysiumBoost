@@ -478,7 +478,7 @@
       if (cartHasGameId("lol")) {
         idRows.push(row(
           Boolean(String(state.lolRiotId || "").trim() && String(state.lolServer || "").trim()),
-          ui("Riot ID & server (League of Legends)")
+          ui("Summoner name & server (League)")
         ));
       }
       if (cartNeedsSteamId()) {
@@ -583,15 +583,15 @@
               </label>`;
       }
       if (needVal) {
-        grid += `<label class="order-context-field order-context-field--wide"><span class="order-context-k">${escapeHtml(ui("Riot ID (Valorant)"))}</span>
+        grid += `<label class="order-context-field order-context-field--wide"><span class="order-context-k">${escapeHtml(ui("Riot ID"))}</span>
                 <input id="orderRiotInput" class="order-context-input" type="text" autocomplete="off" placeholder="GameName#TAG">
               </label>`;
       }
       if (needLol) {
-        grid += `<label class="order-context-field order-context-field--wide"><span class="order-context-k">${escapeHtml(ui("Riot ID (League)"))}</span>
+        grid += `<label class="order-context-field order-context-field--wide"><span class="order-context-k">${escapeHtml(ui("Summoner name"))}</span>
                 <input id="orderLolRiotInput" class="order-context-input" type="text" autocomplete="off" placeholder="Summoner#TAG">
               </label>
-              <label class="order-context-field order-context-field--wide"><span class="order-context-k">${escapeHtml(ui("LoL server"))}</span>
+              <label class="order-context-field order-context-field--wide"><span class="order-context-k">${escapeHtml(ui("Server"))}</span>
                 <input id="orderLolServerInput" class="order-context-input" type="text" autocomplete="off" placeholder="EUW, NA, EUNE…">
               </label>`;
       }
@@ -609,12 +609,13 @@
               </label>`;
       }
       if (!anyField) {
-        return `<div class="order-context-panel order-context-panel--minimal" role="region"><p class="order-context-hint">${escapeHtml(ui("Use Embark ID above for Arc Raiders. This cart has no extra account fields."))}</p></div>`;
+        if (state.cart.length && state.cart.every(item => item.gameId === "arc")) return "";
+        return `<div class="order-context-panel order-context-panel--minimal" role="region"><p class="order-context-hint">${escapeHtml(ui("No additional game ID is required for this order."))}</p></div>`;
       }
       return `<div class="order-context-panel" role="region" aria-labelledby="orderCtxTitle">
-            <div id="orderCtxTitle" class="order-context-title">${escapeHtml(ui("Order context"))}</div>
+            <div id="orderCtxTitle" class="order-context-title">${escapeHtml(ui("Game ID"))}</div>
             <div class="order-context-grid">${grid}</div>
-            <p class="order-context-hint">${escapeHtml(ui("We validate required fields before you can copy your Discord ticket."))}</p>
+            <p class="order-context-hint">${escapeHtml(ui("We validate these fields before copying your order."))}</p>
           </div>`;
     }
 
@@ -626,7 +627,7 @@
         rows += `<div><dt>${ui("Platform")}</dt><dd>${escapeHtml(item.platform || state.orderPlatform || "—")}</dd></div>`;
         rows += `<div><dt>${ui("Riot ID")}</dt><dd>${escapeHtml((item.playerId || state.riotId || "").trim() || "—")}</dd></div>`;
       } else if (gid === "lol") {
-        rows += `<div><dt>${ui("Riot ID")}</dt><dd>${escapeHtml((item.playerId || state.lolRiotId || "").trim() || "—")}</dd></div>`;
+        rows += `<div><dt>${ui("Summoner name")}</dt><dd>${escapeHtml((item.playerId || state.lolRiotId || "").trim() || "—")}</dd></div>`;
         rows += `<div><dt>${ui("Server")}</dt><dd>${escapeHtml(state.lolServer || "—")}</dd></div>`;
       } else if (gid === "premier" || gid === "faceit") {
         rows += `<div><dt>${ui("Steam / friend code")}</dt><dd>${escapeHtml((item.playerId || state.steamId || "").trim() || "—")}</dd></div>`;
@@ -658,8 +659,8 @@
         lines.push(`    Platform: ${item.platform || state.orderPlatform || "—"}`);
       }
       if (gid === "lol") {
-        lines.push(`    LoL Riot ID: ${(item.playerId || state.lolRiotId || "").trim() || "—"}`);
-        lines.push(`    LoL server: ${state.lolServer || "—"}`);
+        lines.push(`    Summoner name: ${(item.playerId || state.lolRiotId || "").trim() || "—"}`);
+        lines.push(`    Server: ${state.lolServer || "—"}`);
       }
       if (gid === "premier" || gid === "faceit") {
         lines.push(`    Steam / friend code: ${(item.playerId || state.steamId || "").trim() || "—"}`);
@@ -696,8 +697,8 @@
           <div class="cart-empty-card">
             <div class="cart-empty-icon" aria-hidden="true">✦</div>
             <p class="cart-empty-title">${escapeHtml(ui("Your order is empty"))}</p>
-            <p class="cart-empty-sub">${escapeHtml(ui("Choose a service to build your Discord ticket."))}</p>
-            <button type="button" class="btn btn-premium" id="browsePopularServices">${escapeHtml(ui("Browse popular services"))}</button>
+            <p class="cart-empty-sub">${escapeHtml(ui("Pick a game, choose a service, customize it, then open the order center to finish in Discord."))}</p>
+            <button type="button" class="btn btn-premium" id="browsePopularServices">${escapeHtml(ui("Browse services"))}</button>
             <button type="button" class="btn btn-glass cart-empty-secondary" id="continueShoppingEmpty">${escapeHtml(ui("Continue browsing"))}</button>
           </div>`;
           const bp = cartBodyEl.querySelector("#browsePopularServices");
@@ -705,7 +706,9 @@
             bp.addEventListener("click", () => {
               closeCart();
               selectGame("arc");
-              requestAnimationFrame(() => $("popularHead")?.scrollIntoView({ behavior: "smooth", block: "start" }));
+              requestAnimationFrame(() => {
+                $("serviceHead")?.scrollIntoView({ behavior: "smooth", block: "start" });
+              });
             });
           }
           const c0 = cartBodyEl.querySelector("#continueShoppingEmpty");
@@ -719,8 +722,8 @@
         const embarkBlock = hasArcItems
           ? `<div class="cart-embark-panel" role="region" aria-label="Embark ID">
             <div class="cart-embark-label">${escapeHtml(ui("Embark ID"))}</div>
-            <p class="cart-embark-value">${state.arcId ? escapeHtml(state.arcId) : (state.arcIdSkipped ? escapeHtml(ui("Will type on Discord")) : escapeHtml(ui("Not set — add before receipt download")))}</p>
-            ${!state.arcId ? `<p class="cart-embark-warn">${escapeHtml(ui("Required to copy or download a verified ticket for Arc Raiders."))}</p>` : ""}
+            <p class="cart-embark-value">${state.arcId ? escapeHtml(state.arcId) : (state.arcIdSkipped ? escapeHtml(ui("Will type on Discord")) : escapeHtml(ui("Not set — add before you copy")))}</p>
+            ${!state.arcId && !state.arcIdSkipped ? `<p class="cart-embark-warn">${escapeHtml(ui("Arc Raiders orders need an Embark ID (or skip) before checkout."))}</p>` : ""}
             <button type="button" class="cart-embark-btn" id="cartEmbarkEditBtn">${escapeHtml(ui("Add or edit Embark ID"))}</button>
           </div>`
           : "";
@@ -730,18 +733,23 @@
           if (foot && strip && strip.parentElement !== foot) foot.appendChild(strip);
         }
         ensureOrderPreviewId();
-        const leftCol = `
-          <div class="order-center__left">
-            <div class="order-meta-card order-meta-card--preview">
-              <div class="order-meta-k">${escapeHtml(ui("Order preview ID"))}</div>
-              <div class="order-preview-id-strong">${escapeHtml(state.orderPreviewId)}</div>
+        const step1Head = `
+          <header class="checkout-step-head">
+            <span class="checkout-step-num" aria-hidden="true">1</span>
+            <div>
+              <h3 id="checkoutStepReviewTitle" class="checkout-step-title">${escapeHtml(ui("Review order"))}</h3>
+              <p class="checkout-step-desc">${escapeHtml(ui("Quantities, options, and line prices for your ticket."))}</p>
             </div>
-            ${embarkBlock}
-            ${orderContextHeaderHtml()}
-            ${buildOrderChecklistHtml()}
-            ${buildDiscordNextStepsHtml()}
-            <p class="order-safety-note">${escapeHtml(ui("No cheats. No exploits. Manual service only."))}</p>
-          </div>`;
+          </header>`;
+        const previewStrip = `<div class="order-preview-strip"><span class="order-preview-strip__k">${escapeHtml(ui("Preview ID"))}</span><code class="order-preview-strip__v">${escapeHtml(state.orderPreviewId)}</code></div>`;
+        const step2Head = `
+          <header class="checkout-step-head">
+            <span class="checkout-step-num" aria-hidden="true">2</span>
+            <div>
+              <h3 id="checkoutStepGameIdTitle" class="checkout-step-title">${escapeHtml(ui("Add game ID"))}</h3>
+              <p class="checkout-step-desc">${escapeHtml(ui("Match the account fields your booster will use."))}</p>
+            </div>
+          </header>`;
         const itemBlocks = state.cart.map((item, idx) => {
           const priceLabel = item.custom
             ? (item.game === "Valorant" ? "Custom Price" : "CUSTOM")
@@ -756,7 +764,7 @@
           const acctRows = cartReceiptAccountRows(item);
           const qtyDisabled = item.custom ? " disabled" : "";
           return `
-            <article class="cart-item cart-item--receipt">
+            <article class="cart-item cart-item--receipt cart-item--checkout">
               <div class="cart-receipt-head">
                 <span class="cart-receipt-num">#${idx + 1}</span>
                 <h3 class="cart-receipt-title">${titleSafe}</h3>
@@ -791,19 +799,25 @@
             </article>
           `;
         }).join("");
-        const rightCol = `
-          <div class="order-center__right">
-            <div class="order-lines-head">
-              <h3 class="order-lines-title">${escapeHtml(ui("Cart items"))}</h3>
-              <p class="order-lines-copy">${escapeHtml(ui("Review every line before copying your Discord ticket."))}</p>
-            </div>
-            <div class="order-lines-list">${itemBlocks}</div>
-            <div class="cart-continue-wrap order-lines-continue"><button type="button" class="btn-continue" id="continueShoppingCart">${escapeHtml(ui("Continue shopping"))}</button></div>
-            <div id="cartCheckoutDock" class="cart-checkout-dock" aria-label="${escapeHtml(ui("Checkout"))}"></div>
-          </div>`;
         const cartBodyEl = $("cartBody");
         if (cartBodyEl) {
-          cartBodyEl.innerHTML = `<div class="order-center">${leftCol}${rightCol}</div>`;
+          cartBodyEl.innerHTML = `
+            <div class="order-center order-center--checkout-flow">
+              <section class="checkout-step" aria-labelledby="checkoutStepReviewTitle">
+                ${step1Head}
+                ${previewStrip}
+                <div class="order-lines-list order-lines-list--checkout">${itemBlocks}</div>
+                <div class="cart-continue-wrap"><button type="button" class="btn-continue" id="continueShoppingCart">${escapeHtml(ui("Continue shopping"))}</button></div>
+              </section>
+              <section class="checkout-step checkout-step--game-id" aria-labelledby="checkoutStepGameIdTitle">
+                ${step2Head}
+                <div class="checkout-step-body">
+                  ${embarkBlock}
+                  ${orderContextHeaderHtml()}
+                </div>
+              </section>
+              <div id="cartCheckoutDock" class="cart-checkout-dock"></div>
+            </div>`;
           cartBodyEl.querySelectorAll("[data-remove]").forEach(button =>
             button.addEventListener("click", () => {
               state.cart = state.cart.filter(item => item.id !== button.dataset.remove);
@@ -1230,16 +1244,21 @@
       $("copySuccessModal")?.setAttribute("aria-hidden", "true");
     }
 
-    function copyTicketTextToClipboard() {
+    function copyTicketTextToClipboard(openDiscordAfter) {
       const text = ticketText();
       const statusEl = $("copyStatus");
       const ok = () => {
-        if (statusEl) statusEl.textContent = ui("Ticket copied successfully. Open Discord and paste it into your order ticket.");
+        if (openDiscordAfter && typeof DISCORD_URL === "string") {
+          window.open(DISCORD_URL, "_blank", "noopener");
+          if (statusEl) statusEl.textContent = ui("Copied. Discord opened — paste your order into the channel.");
+        } else if (statusEl) {
+          statusEl.textContent = ui("Ticket copied successfully. Open Discord and paste it into your order ticket.");
+        }
         showToast(ui("Ticket copied."), 2600, false);
         openCopySuccessModal();
       };
       const fail = () => {
-        if (statusEl) statusEl.textContent = ui("Copy failed. Try Download Receipt Image or copy the ticket manually.");
+        if (statusEl) statusEl.textContent = ui("Copy failed. Try downloading the receipt image or copy the ticket manually.");
         showToast(ui("Copy failed."), 3200, true);
       };
       if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -1250,7 +1269,7 @@
     }
 
     function copyOrderNow() {
-      copyTicketTextToClipboard();
+      copyTicketTextToClipboard(true);
     }
 
     async function downloadOrderReceipt() {

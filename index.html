@@ -46,7 +46,7 @@
         </button>
         <div class="game-menu-panel" id="gameMenuPanel" role="menu" aria-labelledby="gameMenuBtn" hidden></div>
       </div>
-      <a class="btn btn-glass topbar-discord" data-discord-header href="https://discord.com/channels/1499767937974669363/1499796035382415462" target="_blank" rel="noopener">Discord</a>
+      <a class="btn btn-glass topbar-discord" data-discord-header href="https://discord.com/channels/1499767937974669363/1499796035382415462" target="_blank" rel="noopener">Join Discord</a>
       <div class="actions">
         <input class="site-search" id="siteSearch" type="search" placeholder="Search services" aria-label="Search services">
         <button class="btn btn-icon" id="siteSearchBtn" type="button" aria-label="Search" title="Search">
@@ -95,38 +95,42 @@
     <section class="home-content" id="homeContent">
       <div class="shell">
         <div class="trust-bar" aria-label="Trust and guarantees">
-          <div class="trust-item">
-            <span class="trust-item__ic" aria-hidden="true">&#128666;</span>
-            <div class="trust-item__text"><strong>Manual Delivery</strong></div>
+          <div class="trust-badge">
+            <img class="trust-badge__img" src="assets/manual-delivery.webp" alt="Manual Delivery" loading="eager" decoding="async">
           </div>
-          <div class="trust-item">
-            <span class="trust-item__ic" aria-hidden="true">&#9876;</span>
-            <div class="trust-item__text"><strong>No Cheats</strong></div>
+          <div class="trust-badge">
+            <img class="trust-badge__img" src="assets/no-cheats.webp" alt="No Cheats" loading="eager" decoding="async">
           </div>
-          <div class="trust-item">
-            <span class="trust-item__ic" aria-hidden="true">&#128274;</span>
-            <div class="trust-item__text"><strong>Safe Process</strong></div>
+          <div class="trust-badge">
+            <img class="trust-badge__img" src="assets/safe-process.webp" alt="Safe Process" loading="eager" decoding="async">
           </div>
-          <div class="trust-item">
-            <span class="trust-item__ic" aria-hidden="true">&#9832;</span>
-            <div class="trust-item__text"><strong>Fast Support</strong></div>
+          <div class="trust-badge">
+            <img class="trust-badge__img" src="assets/fast-support.webp" alt="Fast Support" loading="eager" decoding="async">
           </div>
-          <div class="trust-item">
-            <span class="trust-item__ic" aria-hidden="true">&#9733;</span>
-            <div class="trust-item__text"><strong>Verified Boosters</strong></div>
+          <div class="trust-badge">
+            <img class="trust-badge__img" src="assets/verified-boosters.webp" alt="Verified Boosters" loading="eager" decoding="async">
           </div>
-          <div class="trust-item">
-            <span class="trust-item__ic" aria-hidden="true">&#9989;</span>
-            <div class="trust-item__text"><strong>Completion Guarantee</strong></div>
+          <div class="trust-badge">
+            <img class="trust-badge__img" src="assets/completion-guarantee.webp" alt="Completion Guarantee" loading="eager" decoding="async">
           </div>
         </div>
         <div class="quick-head" id="homeGameHead">
           <div>
             <h2>Choose Your Game</h2>
-            <p>Pick a title to open services, customize your order, and build your Discord ticket.</p>
+            <p>Pick a title to open services, customize your order, and send everything to Discord in one step.</p>
           </div>
         </div>
         <div class="home-grid" id="homeGameGrid"></div>
+        <section class="why-elysium" aria-labelledby="whyElysiumTitle">
+          <h2 id="whyElysiumTitle">Why ElysiumBoost</h2>
+          <div class="why-grid">
+            <article class="why-card"><h3>Premium manual services</h3><p>Human-delivered orders with clear Discord coordination — never sketchy automation.</p></article>
+            <article class="why-card"><h3>Verified booster team</h3><p>Vetted pros for high-trust carries, coaching, and extracts.</p></article>
+            <article class="why-card"><h3>Clear Discord flow</h3><p>Copy a structured ticket, paste once, confirm details with support.</p></article>
+            <article class="why-card"><h3>Fast support</h3><p>Ticket-first responses so you are never guessing next steps.</p></article>
+            <article class="why-card"><h3>Safe delivery standards</h3><p>We prioritize account respect, transparency, and completion clarity.</p></article>
+          </div>
+        </section>
         <section class="how-it-works" aria-labelledby="howItWorksTitle">
           <h2 id="howItWorksTitle">How It Works</h2>
           <div class="how-grid">
@@ -142,24 +146,14 @@
             </article>
             <article class="how-card">
               <div class="how-card__step">03</div>
-              <h3>Copy your Discord ticket</h3>
-              <p>Add to cart, then copy a clean, readable ticket with every line item spelled out for support.</p>
+              <h3>Copy order &amp; open Discord</h3>
+              <p>Add to cart, copy your formatted receipt, and jump straight into the order channel to paste for support.</p>
             </article>
             <article class="how-card">
               <div class="how-card__step">04</div>
               <h3>Confirm with support</h3>
               <p>Paste in Discord, confirm Embark ID for Arc if needed, and lock ETA with your booster.</p>
             </article>
-          </div>
-        </section>
-        <section class="why-elysium" aria-labelledby="whyElysiumTitle">
-          <h2 id="whyElysiumTitle">Why ElysiumBoost</h2>
-          <div class="why-grid">
-            <article class="why-card"><h3>Premium manual services</h3><p>Human-delivered orders with clear Discord coordination — never sketchy automation.</p></article>
-            <article class="why-card"><h3>Verified booster team</h3><p>Vetted pros for high-trust carries, coaching, and extracts.</p></article>
-            <article class="why-card"><h3>Clear Discord flow</h3><p>Copy a structured ticket, paste once, confirm details with support.</p></article>
-            <article class="why-card"><h3>Fast support</h3><p>Ticket-first responses so you are never guessing next steps.</p></article>
-            <article class="why-card"><h3>Safe delivery standards</h3><p>We prioritize account respect, transparency, and completion clarity.</p></article>
           </div>
         </section>
         <section class="delivery-proof-home" aria-labelledby="deliveryProofTitle">
@@ -178,6 +172,18 @@
               <h3>Closed with clarity</h3>
               <p>Support checks completion expectations before an order is considered done — no silent hand-offs.</p>
             </article>
+          </div>
+        </section>
+        <section class="faq-home" aria-labelledby="faqHomeTitle">
+          <h2 id="faqHomeTitle">FAQ</h2>
+          <div class="faq-list">
+            <details class="faq-item"><summary>Is this service manual?</summary><p>Yes. ElysiumBoost sells manual coordination with boosters — no cheat software sold or promoted.</p></details>
+            <details class="faq-item"><summary>Do you use cheats?</summary><p>No cheats. No exploits. Manual service only.</p></details>
+            <details class="faq-item"><summary>How do I receive my order?</summary><p>After copying your ticket, open Discord, paste into the order channel, and a booster confirms the handoff plan.</p></details>
+            <details class="faq-item"><summary>How long does delivery take?</summary><p>Timelines vary by game and queue. Your ticket lists estimates; support confirms live ETAs.</p></details>
+            <details class="faq-item"><summary>Do I need to share my password?</summary><p>Many services offer self-play or duo. Password sharing is only when a service explicitly requires piloting — always confirm in Discord.</p></details>
+            <details class="faq-item"><summary>What if delivery fails?</summary><p>Reach support in Discord — we document agreements and work toward fair resolutions.</p></details>
+            <details class="faq-item"><summary>How do I open a Discord ticket?</summary><p>Use Join Discord or the checkout button, paste the copied order, and follow moderator instructions.</p></details>
           </div>
         </section>
         <section class="verified-feedback-home" aria-labelledby="verifiedFeedbackTitle">
@@ -204,31 +210,14 @@
             </article>
           </div>
         </section>
-        <section class="faq-home" aria-labelledby="faqHomeTitle">
-          <h2 id="faqHomeTitle">FAQ</h2>
-          <div class="faq-list">
-            <details class="faq-item"><summary>Is this service manual?</summary><p>Yes. ElysiumBoost sells manual coordination with boosters — no cheat software sold or promoted.</p></details>
-            <details class="faq-item"><summary>Do you use cheats?</summary><p>No cheats. No exploits. Manual service only.</p></details>
-            <details class="faq-item"><summary>How do I receive my order?</summary><p>After copying your ticket, open Discord, paste into the order channel, and a booster confirms the handoff plan.</p></details>
-            <details class="faq-item"><summary>How long does delivery take?</summary><p>Timelines vary by game and queue. Your ticket lists estimates; support confirms live ETAs.</p></details>
-            <details class="faq-item"><summary>Do I need to share my password?</summary><p>Many services offer self-play or duo. Password sharing is only when a service explicitly requires piloting — always confirm in Discord.</p></details>
-            <details class="faq-item"><summary>What if delivery fails?</summary><p>Reach support in Discord — we document agreements and work toward fair resolutions.</p></details>
-            <details class="faq-item"><summary>How do I open a Discord ticket?</summary><p>Use the Open Discord button, paste the copied ticket, and follow moderator instructions.</p></details>
-          </div>
-        </section>
         <div class="home-about-pricing" id="homeAboutBlock"></div>
       </div>
     </section>
 
     <section class="main service-content hidden" id="serviceContent">
       <div class="shell">
-        <div class="quick-head" id="popularHead">
-          <div>
-            <h2 id="popularTitle">Popular Orders</h2>
-            <p id="popularCopy">Fast-start services customers usually choose first.</p>
-          </div>
-        </div>
-        <div class="popular-grid" id="popularGrid"></div>
+        <div id="popularHead" class="popular-placeholder" hidden aria-hidden="true"></div>
+        <div id="popularGrid" class="popular-placeholder" hidden aria-hidden="true"></div>
 
         <div class="section-head" id="serviceHead">
           <div>
@@ -302,15 +291,16 @@
             <span id="cartTotal">$0.00</span>
             <em id="cartUsdHint">Ticket total: $0.00 USD</em>
           </div>
-          <p class="cart-verify-note" id="cartVerifyNote">Attach the receipt image to Discord if support requests visual confirmation.</p>
+          <p class="cart-verify-note" id="cartVerifyNote">Optional: save a receipt image if support asks for a visual copy of your order.</p>
           <div class="order-actions-primary">
-            <button class="btn btn-premium btn-order-copy" id="copyOrder" type="button">Copy Discord Ticket</button>
-            <button class="btn btn-glass btn-order-receipt" id="downloadOrderReceipt" type="button">Download Receipt Image</button>
-            <a class="btn btn-ghost btn-order-discord" id="openDiscord" href="https://discord.com/channels/1499767937974669363/1499796035382415462" target="_blank" rel="noopener">Open Discord</a>
+            <button class="btn btn-premium btn-order-copy" id="copyOrder" type="button">Copy Order &amp; Open Discord</button>
+          </div>
+          <div class="order-actions-secondary">
+            <button type="button" class="btn-link-cart" id="downloadOrderReceipt">Download receipt image</button>
+            <a class="visually-hidden-focusable" id="openDiscord" href="https://discord.com/channels/1499767937974669363/1499796035382415462" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">Open Discord</a>
           </div>
           <div class="order-actions-tertiary">
-            <button class="btn-text" type="button" id="clearCart">Clear cart</button>
-            <a class="btn-text" id="cartFeedbackLink" href="https://discord.com/channels/1499767937974669363/1503176511912542298" target="_blank" rel="noopener">Leave feedback</a>
+            <button class="btn-text btn-clear-cart" type="button" id="clearCart">Clear cart</button>
           </div>
           <div class="copy-status" id="copyStatus" aria-live="polite"></div>
         </div>
@@ -338,7 +328,7 @@
         <span>Premium manual game services · Discord ticket flow</span>
       </div>
       <div class="site-footer-actions">
-        <a class="btn btn-glass" href="https://discord.com/channels/1499767937974669363/1499796035382415462" target="_blank" rel="noopener">Discord</a>
+        <a class="btn btn-glass" href="https://discord.com/channels/1499767937974669363/1499796035382415462" target="_blank" rel="noopener">Join Discord</a>
         <button type="button" class="btn btn-glass" id="footerLegalBtn">Terms &amp; safety</button>
       </div>
     </div>
@@ -350,24 +340,24 @@
   <aside class="ely-support-widget" aria-label="Discord support">
     <strong>Support online</strong>
     <span>Average response · 2–5 minutes</span>
-    <a class="btn btn-premium btn-mini" href="https://discord.com/channels/1499767937974669363/1499796035382415462" target="_blank" rel="noopener">Open Discord ticket</a>
+    <a class="btn btn-premium btn-mini" href="https://discord.com/channels/1499767937974669363/1499796035382415462" target="_blank" rel="noopener">Join Discord</a>
   </aside>
 
   <div class="legal-modal-backdrop" id="copySuccessModal" aria-hidden="true">
     <div class="legal-modal copy-success-modal" role="dialog" aria-modal="true" aria-labelledby="copySuccessTitle">
       <h2 id="copySuccessTitle">Ticket copied successfully</h2>
-      <p class="copy-success-lead">Your order text is on the clipboard. Finish the handoff in Discord so support can confirm scope, timing, and pricing.</p>
+      <p class="copy-success-lead">Your order text is on the clipboard. A Discord tab should open automatically — paste there so support can confirm scope, timing, and pricing.</p>
       <p class="copy-success-sub"><strong>Next steps</strong></p>
       <ol class="copy-success-steps">
-        <li>Open Discord</li>
+        <li>Jump to Discord (or use Join Discord)</li>
         <li>Create an order ticket in the channel</li>
         <li>Paste your copied order</li>
         <li>Attach the receipt image if support asks</li>
         <li>Wait for confirmation before scheduling play</li>
       </ol>
       <div class="copy-success-actions">
-        <a class="btn btn-premium" id="copySuccessDiscord" href="https://discord.com/channels/1499767937974669363/1499796035382415462" target="_blank" rel="noopener">Open Discord</a>
-        <button type="button" class="btn btn-glass" id="copySuccessReceipt">Download Receipt Image</button>
+        <a class="btn btn-premium" id="copySuccessDiscord" href="https://discord.com/channels/1499767937974669363/1499796035382415462" target="_blank" rel="noopener">Join Discord</a>
+        <button type="button" class="btn btn-ghost btn-copy-success-receipt" id="copySuccessReceipt">Download receipt image</button>
         <button type="button" class="btn btn-ghost legal-close" id="copySuccessClose">Close</button>
       </div>
     </div>
