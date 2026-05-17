@@ -46,7 +46,7 @@ function validateTicketRequirements() {
   }
   if (cartNeedsLolId()) {
     if (!String(state.lolRiotId || "").trim()) {
-      return { ok: false, message: ui("Please enter your LoL Riot ID before copying.") };
+      return { ok: false, message: ui("Please enter your Summoner name (Summoner#TAG) before copying.") };
     }
     if (!String(state.lolServer || "").trim()) {
       return { ok: false, message: ui("Please enter your LoL server (e.g. EUW, NA) before copying.") };

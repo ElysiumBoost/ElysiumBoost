@@ -1625,11 +1625,6 @@
       margin-bottom: 28px;
     }
 
-    #popularHead p {
-      font-size: 16px;
-      max-width: 52ch;
-    }
-
     .popular-card, .service-card, .detail-left, .order-card, .cart-item {
       border: 1px solid var(--line);
       border-radius: var(--radius);
@@ -1660,7 +1655,7 @@
       flex-direction: row;
       align-items: stretch;
       gap: 0;
-      min-height: 268px;
+      min-height: 288px;
       padding: 0;
       border-radius: 12px;
     }
@@ -4620,6 +4615,207 @@
       min-width: 0;
     }
 
+    .order-center--checkout-flow {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .checkout-step {
+      padding: 16px 18px 18px;
+      border-radius: 14px;
+      border: 1px solid rgba(139, 92, 246, .28);
+      background: linear-gradient(165deg, rgba(16, 14, 36, .55), rgba(7, 8, 18, .82));
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05);
+    }
+
+    .checkout-step-head {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      margin-bottom: 14px;
+    }
+
+    .checkout-step-num {
+      flex: 0 0 auto;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: 14px;
+      color: #0a0814;
+      background: linear-gradient(135deg, #fbbf24, #fde68a);
+      box-shadow: 0 4px 14px rgba(251, 191, 36, .22);
+    }
+
+    .checkout-step-title {
+      margin: 0 0 4px;
+      font-family: var(--display);
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: #f0e9ff;
+    }
+
+    .checkout-step-desc {
+      margin: 0;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    .order-preview-strip {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(251, 191, 36, .22);
+      background: rgba(40, 32, 12, .2);
+    }
+
+    .order-preview-strip__k {
+      font-family: var(--display);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(253, 230, 138, .85);
+    }
+
+    .order-preview-strip__v {
+      font-family: var(--display);
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: .06em;
+      color: #fef3c7;
+    }
+
+    .order-lines-list--checkout {
+      gap: 12px;
+    }
+
+    .cart-item--checkout {
+      padding: 14px 14px 16px;
+    }
+
+    .checkout-step--game-id .checkout-step-body {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .drawer--cart-compact .order-center--checkout-flow {
+      gap: 14px;
+    }
+
+    .order-actions-secondary {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      align-items: flex-start;
+    }
+
+    .btn-link-cart {
+      padding: 0;
+      margin: 0;
+      border: 0;
+      background: none;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(186, 195, 232, .9);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      cursor: pointer;
+    }
+
+    .btn-link-cart:hover {
+      color: #fff;
+    }
+
+    .btn-clear-cart {
+      font-size: 12px !important;
+      font-weight: 500 !important;
+      color: rgba(148, 163, 184, .85) !important;
+    }
+
+    .visually-hidden-focusable {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .btn-order-copy.btn-premium {
+      min-height: 50px;
+      font-size: 15px;
+    }
+
+    .btn-copy-success-receipt {
+      font-size: 13px !important;
+      font-weight: 600 !important;
+      min-height: 40px;
+    }
+
+    .service-card__arc-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 8px 0 10px;
+    }
+
+    .arc-premium-pill {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: rgba(245, 240, 255, .92);
+      border: 1px solid rgba(139, 92, 246, .4);
+      background: rgba(20, 18, 45, .75);
+    }
+
+    .popular-placeholder {
+      display: none !important;
+    }
+
+    .home-content .shell > section + section {
+      margin-top: 44px;
+    }
+
+    .service-content .section-head {
+      margin-top: 0;
+      padding-top: 4px;
+    }
+
+    .valorant-rank-calculator .valorant-calculator-panel {
+      padding: 14px 14px 16px;
+      border-radius: 12px;
+      border: 1px solid rgba(139, 92, 246, .3);
+      background: rgba(8, 10, 22, .45);
+    }
+
+    .valorant-rank-calculator .valorant-rank-select-panel > .field-block--tight {
+      margin-bottom: 0;
+    }
+
     .order-meta-card {
       padding: 14px 16px 16px;
       border-radius: 12px;
@@ -4664,7 +4860,7 @@
       font-weight: 800;
       letter-spacing: .1em;
       text-transform: uppercase;
-      color: rgba(125, 211, 252, .88);
+      color: rgba(196, 181, 253, .9);
     }
 
     .cart-checklist--spacious {
@@ -4920,7 +5116,7 @@
       font-weight: 800;
       letter-spacing: .14em;
       text-transform: uppercase;
-      color: rgba(125, 211, 252, .88);
+      color: rgba(253, 230, 138, .78);
     }
 
     .cart-embark-value {
@@ -5684,7 +5880,7 @@
       font-weight: 800;
       letter-spacing: .12em;
       text-transform: uppercase;
-      color: rgba(167, 139, 250, .9);
+      color: rgba(253, 230, 138, .85);
       margin: 0 0 10px;
     }
 
