@@ -330,3 +330,42 @@ Keep the report tight. The user is reviewing a lot of work in a short window; do
 - [ ] My new images are `.webp`, `cover`‑safe, under ~150 KB for thumbnails, and registered in `serviceImages` if they're category art.
 - [ ] My new translated strings are saved as real UTF‑8, not Latin‑1 mojibake.
 - [ ] I prepared a short post‑edit report listing files touched, line ranges, reasons, and risks.
+
+---
+
+## Cursor Cloud specific instructions
+
+This is a **pure static site** — no build system, no bundler, no package manager, no dependencies to install.
+
+### Running the dev server
+
+Start a static HTTP server from the repo root:
+
+```bash
+python3 -m http.server 8080
+```
+
+Then open `http://localhost:8080` in Chrome. Do **not** open `index.html` via `file://` — the `<base>` tag and Google Fonts CDN require HTTP.
+
+### Project structure (modularized)
+
+The codebase has been split from a single inline `index.html` into external files. The AGENTS.md §1 describes the older inline layout; the current structure is:
+
+- `index.html` — HTML markup only (~359 lines), loads external CSS/JS
+- `css/styles.css` — all site CSS (~7 185 lines)
+- `js/config.js` — constants, Discord URL, currency rates, translations
+- `js/products.js` — game/service catalog, Arc service factory
+- `js/state.js` — application state object
+- `js/storage.js` — localStorage persistence helpers
+- `js/validation.js` — input validation
+- `js/cart.js` — cart logic, pricing engine, ticket generation
+- `js/ui.js` — UI rendering, detail panels, search
+- `js/main.js` — bootstrap/init, event bindings
+- `assets/` — images, thumbnails, hero backgrounds, audio loop
+- `tools/` — Python utilities for extracting/slimming inline code (dev-only)
+
+### Lint / test / build
+
+- **No linter configured** — the project has no `package.json`, ESLint, or similar tooling. Validate changes by serving the site and testing in the browser.
+- **No automated test suite** — test manually via the browser (browse services, add to cart, copy ticket flow).
+- **No build step** — files are served as-is. Cache-busting uses `?v=` query parameters on `<link>` and `<script>` tags.
